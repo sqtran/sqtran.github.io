@@ -1,4 +1,6 @@
-# sqtran.github.io
+# ${null} does not exist
+# try again later :(
+
 Hello World
 
 
@@ -15,3 +17,6 @@ Things to write about
 - JDV Demos
 - Autobiography
 - Red Hat
+- IUS and RHEL
+- Rebasing a branch
+

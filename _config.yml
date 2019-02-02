@@ -1,1 +1,7 @@
 theme: jekyll-theme-cayman
+
+plugins:
+   - jekyll-avatar
+   - jekyll-sitemap
+   - jemoji
+

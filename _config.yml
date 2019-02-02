@@ -2,6 +2,8 @@ title: Lame blog
 author: Me
 email: nahdontbother@localhost.com
 description: This is my sample GH Pages
+twitter_username: twitter
+github_username: sqtran
 
 markdown: kramdown
 theme: minima

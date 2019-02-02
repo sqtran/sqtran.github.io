@@ -1,7 +1,6 @@
-theme: jekyll-theme-cayman
+title: Lame blog
+author: Me
+email: nahdontbother@localhost.com
+description: This is my sample GH Pages
 
-plugins:
-   - jekyll-avatar
-   - jekyll-sitemap
-   - jemoji
-
+theme: minima

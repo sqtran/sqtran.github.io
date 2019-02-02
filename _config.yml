@@ -3,4 +3,5 @@ author: Me
 email: nahdontbother@localhost.com
 description: This is my sample GH Pages
 
+markdown: kramdown
 theme: minima

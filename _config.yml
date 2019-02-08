@@ -1,8 +1,7 @@
-title: Lame blog
-author: Me
-email: nahdontbother@localhost.com
-description: This is my sample GH Pages
-twitter_username: twitter
+title: Tales from the Field
+author: Steve Tran
+email: stran@redhat.com
+description: This is a collection of random thoughts
 github_username: sqtran
 
 markdown: kramdown

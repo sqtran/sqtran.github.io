@@ -6,7 +6,7 @@ title: Httpd Reverse Proxy
 ## Reverse Proxy with Apache Httpd on RHEL 7.5
 
 
-Httpd is a super simple web server, but even better if you're looking for a reverse proxy.  I had a use-case where I wanted incoming http traffic to pseduo-randomly access my local back-end servers.  I was running several instances of EAP locally, with different port offsets, and I wanted a single vanity URL.  With Apache Httpd, I could specify a virtual host that listens to all traffic coming in on a specific port (80 is the default web port) and redirect it to my back-end servers.
+Httpd is a super simple web server, but even better if you're looking for a reverse proxy.  I had a use-case where I wanted incoming http traffic to pseudo-randomly access my local back-end servers.  I was running several instances of EAP locally, with different port offsets, and I wanted a single vanity URL.  With Apache Httpd, I could specify a virtual host that listens to all traffic coming in on a specific port (80 is the default web port) and redirect it to my back-end servers.
 
 Installing httpd is very easy through `yum`, on RHEL (Fedora)
 ```bash

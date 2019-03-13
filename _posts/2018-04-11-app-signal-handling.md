@@ -25,7 +25,7 @@ DISCLAIMER : This is not intended to be your definitive guide of what you *MUST*
 
 ### Spring Boot
 
-The Springboot lifecycle is a little different than the typical tomcat Servlet lifecycle.  Springboot creates a different type of Application Context [1] that isn't the same as the Servlet Context used by base tomcat.  What this means for you as the developer is that you need to implement your trapping method a little differently.
+The Springboot lifecycle is a little different than the typical tomcat Servlet lifecycle.  Springboot creates a different type of [Application Context] (https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-developing-web-applications) [1] that isn't the same as the Servlet Context used by base tomcat.  What this means for you as the developer is that you need to implement your trapping method a little differently.
 
 What we want to do is create a method with a signature that has arguments for `(ContextClosedEvent cce)`.  Springboot does a class introspection to determine which EventListener to call based on the Event argument type.
 In our code example, you'll see that we implemented the method to wait for any Threads still we recorded as not finished.  The method gets called before the ServletContext gets closed, which is different than how tomcat behaves.  If you don't intercept the `SIGTERM` at this point in the handling chain, it will be too late to send a response back to whoever initiated the http request.  If you don't need to send a response back, it would be perfectly acceptable to trap this further down the chain.
@@ -83,5 +83,5 @@ Whether using Springboot or Tomcat, your application needs to know how much work
 ### Testing
 You should test your application independently before moving it into Openshift.  This is a critical step in software development because how your WAR or JAR behaves in your local test environment should be how your application behaves when deployed as an image in Openshift.  You can send `SIGINT` and `SIGTERM` from the terminal by executing the "kill " command on Linux.  Also, sending a CTRL-C will send a non -9 `SIGTERM` as well to Apache Tomcat and Springboot.
 
-
-[1] https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-developing-web-applications
+References
+1. https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-developing-web-applications

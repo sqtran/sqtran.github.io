@@ -12,7 +12,11 @@ To handle SPNEGO, Wildfly (what EAP7 is based on) built in an authentication mec
 
 
 [1] https://github.com/wildfly/wildfly/blob/10.1.0.Final/undertow/src/main/java/org/wildfly/extension/undertow/ServletContainerAdd.java#L121
+
 [2] https://github.com/wildfly-security/jboss-negotiation/blob/3.0.3.Final/jboss-negotiation-common/src/main/java/org/jboss/security/negotiation/NegotiationMechanism.java
+
 [3] https://tomcat.apache.org/tomcat-5.5-doc/catalina/docs/api/org/apache/catalina/authenticator/SingleSignOn.html
+
 [4] https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/how_to_set_up_sso_with_kerberos/index#spnego
+
 [5] https://docs.oracle.com/cd/E13212_01/wles/docs42/secintro/services.html#1056409

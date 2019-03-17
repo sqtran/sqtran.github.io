@@ -41,8 +41,10 @@ Once your module is setup, you'll need to add this driver into the "drivers" sec
 ```xml
 <datasources>
   ...
-  <driver name="impala" module="org.apache.hadoop.impala">
-      <driver-class>com.cloudera.impala.jdbc41.Driver</driver-class>
-  </driver>
+  <drivers>
+    <driver name="impala" module="org.apache.hadoop.impala">
+        <driver-class>com.cloudera.impala.jdbc41.Driver</driver-class>
+    </driver>
+  </drivers>
 </datasources>
 ```

@@ -5,7 +5,7 @@ title: Application Signal Handling
 
 # Application Signal Handling 			 		 	
 
-Signals are how the operating system (or other applications) interactions with running processes.  Whether it's running on bare metal, virtual machines, containers, or all of the above on a PaaS platform, the onus is on the application to interpret these signals and respond appropriately.  This general topic is known as signal handling, but we're taking a narrower subset of these signals and only focusing on two signals - `SIGINT` and `SIGTERM`
+Signals are how the operating system (or other applications) interact with running processes.  Whether it's running on bare metal, virtual machines, containers, or all of the above on a PaaS platform, the onus is on the application to interpret these signals and respond appropriately.  This general topic is known as signal handling, but we're taking a narrower subset of these signals and only focusing on two signals - `SIGINT` and `SIGTERM`
 
 In the web based world, we run our web-applications inside Servlet Containers.  There's plenty of different flavors of Servlet Containers to choose from, but for this example, we're only dealing with Tomcat and Springboot.  Both have their advantages and disadvantages, but this post isn't to discuss which one you should use.  Regardless of the Servlet Container you use, there is default behavior built-in to handle a `SIGINT` and `SIGTERM` signal.  It's up to you as a developer to determine how to handle these operations.
 

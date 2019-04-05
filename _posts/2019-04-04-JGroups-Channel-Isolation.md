@@ -5,7 +5,7 @@ title: JGroups Channel Isolation
 
 ## JGroups Channel Isolation
 
-This is a continuation of my previous post about JGroups.  See previous [post](2019-03-25-JGroups-Multicast.md) for background.
+This is a continuation of my previous post about JGroups.  See previous post for more background.
 
 After standing up two HA clusters with UDP multicast, our users started seeing errors with their deployments.  The logs showed cross-pollination of UDP messages.  Messages from "clusterA" was joining "clusterB" as indicated by messages like the following in the `server.log` file.
 

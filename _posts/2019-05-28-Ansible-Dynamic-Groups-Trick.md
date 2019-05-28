@@ -9,12 +9,13 @@ Here is a handy Ansible task to dynamically create a list of hosts, based on ite
 
 
 First set an Ansible Fact that will hold the list.  
+{% raw %}
 ```yml
   - name: Collect IPs for the entire cluster
     set_fact:
       list_of_ips: "{{ groups['cluster'] | map('extract', hostvars, ['ansible_default_ipv4', 'address']) | join('[7600],') }}[7600]"
-
 ```
+{% endraw %}
 
 *Note that we are also pulling out the `ansible_default_ipv4` field out of `hostvars`.  We're appending "[7600]" because that's what JBoss expects the default port to be, but that is not pertinent to what we are doing with Ansible here.*
 

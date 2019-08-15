@@ -7,7 +7,7 @@ title: Containerized Httpd
 
 This is an expansion of what I wrote about yesterday.  I took the Httpd reverse proxy setup and containerized it so that I wouldn't need to install Httpd locally, nor open up SELinux rules that I don't want to keep open permanently.
 
-Take a look at my [Containered Httpd](https://github.com/sqtran/containered_httpd) project on Github.  It's essentially a minimal `Dockerfile` to use `httpd:2-alpine` and overwrite it's default configuration file.
+Take a look at my [containered_httpd](https://github.com/sqtran/containered_httpd) project on Github.  It's essentially a minimal `Dockerfile` to use `httpd:2-alpine` and overwrite it's default configuration file.
 
 Configuration of Httpd on Alpine is a little different than the RHEL example I posted.  I'm basically laying down my own copy of /usr/local/apache2/conf/httpd.conf into the container so that it picks up the configurations I want.
 

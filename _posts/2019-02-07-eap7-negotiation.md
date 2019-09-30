@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: EAP7 SPNEGO Classloading
 ---
 

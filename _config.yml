@@ -6,4 +6,4 @@ github_username: sqtran
 linkedin_username: steve-tran-a9a30331
 
 markdown: kramdown
-theme: minima
+theme: jekyll-theme-leap-day

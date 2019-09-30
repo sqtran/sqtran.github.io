@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: JBoss EAP7 Elytron Migration Gotchas
 ---
 

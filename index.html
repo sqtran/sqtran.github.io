@@ -2,9 +2,6 @@
 layout: default
 ---
 
-This is the beginning of my blog.
-<br/>
-
 <h2>Blog</h2>
 {% assign postsByYearMonth = site.posts | group_by_exp:"post", "post.date | date: '%Y %b'"  %}
 {% for yearMonth in postsByYearMonth %}

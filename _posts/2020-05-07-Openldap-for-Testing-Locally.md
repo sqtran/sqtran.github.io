@@ -71,7 +71,7 @@ ou: Test Engineering
 
 ```
 
-Note that the image honors some environment variables to change the default values, such as changing the administrative bind account name.  See the Github page for a full list of all the variables.
+Note that the image honors some environment variables to change the default values, such as changing the administrative bind account name.  See the Github page https://github.com/openshift/openldap for a full list of all the variables.
 
 
 ### Deployment

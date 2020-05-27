@@ -15,8 +15,7 @@ Standing up your own containerized OpenLDAP server is quick and painless way to 
 
 The image being used is this https://hub.docker.com/r/openshift/openldap-2441-centos7/.  Even though this may not be the latest version of OpenLDAP, and it has a bold disclaimer that this is only meant to be used internally for testing their Openshift project, it still provides enough functionality for local testing.
 
-One thing to note is the certificate it uses is expired, so the `ldaps://` protocol won't be able to establish a secure connection.  It probably doesn't matter for testing purposes though.
-
+One thing to note is the certificate it uses is expired, so the `ldaps://` protocol won't be able to establish a trusted secure connection.  It probably doesn't matter for testing purposes though.  If you really want to use this though, just turn off the certificate check by passing an environment variable to your ldap commands.
 
 ### Configuration
 
@@ -225,6 +224,11 @@ If you visit the Github site, you'll see what the default username and passwords
 #### Searching
 ```bash
 ldapsearch -h <host> -w admin -D "cn=Manager,dc=example,dc=com" -b "dc=example,dc=com"
+```
+
+With SSL, but ignoring certificate checks.
+```bash
+LDAPTLS_REQCERT=never ldapsearch -w admin -D "cn=Manager,dc=example,dc=com" -b "dc=example,dc=com" -H ldaps://localhost:636 -vvv
 ```
 
 Response

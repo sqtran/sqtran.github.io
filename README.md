@@ -1,3 +1,3 @@
 #### Simple Github pages blog site.
 
-See it live at https://sqtran.github.io/theblog/
+See it live at https://sqtran.github.io

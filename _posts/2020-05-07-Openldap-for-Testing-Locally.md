@@ -107,9 +107,9 @@ homephone: 555-555-5555
 mail: maggie@simpson.com
 description: test account
 
-dn: cn=Kirt Van Houten,ou=people,ou=intranet,dc=example,dc=com
+dn: cn=Kirk Van Houten,ou=people,ou=intranet,dc=example,dc=com
 objectclass: inetOrgPerson
-cn: Kirt Van Houten
+cn: Kirk Van Houten
 sn: Van Houten
 uid: kvanhouten
 userpassword: 123456

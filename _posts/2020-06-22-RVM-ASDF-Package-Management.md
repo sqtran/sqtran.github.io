@@ -7,7 +7,7 @@ title: RVM to ASDF Package Management
 
 I got into `Ruby` development a few years back.  To manage `Ruby` packages, I had to use either `rbenv` or `rvm`.  For reasons I forget, I went with `rvm` and haven't looked back since.  Fast-forward to today, I'm using a lot more tools now, so my `.bash_profile` and `.bashrc` config files are starting to balloon.  It's still semi-neatly managed, but there has to be a better way.
 
-I'm trying out this tool called `ASDF-vm`.  See https://asdf-vm.com/ for more information.  It's going to manage all my tools for me, and it's highly extensible so it'll be useful for more than what's currently available today.  It's also opensource, so anybody can add new stuff to it.
+I'm trying out this tool called `asdf-vm`.  See [asdf](https://asdf-vm.com/) for more information.  It's going to manage all my tools for me, and it's highly extensible so it'll be useful for more than what's currently available today.  It's also opensource, so anybody can add new stuff to it.
 
 What I really like about this tool is you can customize the specific versions for tools per directory.  This is great if you're working on multiple projects and need a way to quickly switch between tooling contexts.
 

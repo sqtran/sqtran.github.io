@@ -89,8 +89,7 @@ SSL-Session:
 It's an outdated, and insecure practice if the server is accepting `TLS 1.1` or lower.  To check a specific TLS version, just pass in the following flags, rerun the command with any of the following flags. `-TLS1_2`, `-TLS1_1`, `-SSL3`
 OpenSSL
 
-Download the certificate by following this example [here](2019-05-08-OpenSSL-Tricks.md).  If the certificate is already present on the machine, just use this command.
-
+Download the certificate by following this example [here]({% post_url 2019-05-08-OpenSSL-Tricks %}).  If the certificate is already present on the machine, just use this command.
 ```bash
 openssl x509 -in the_certificate_here.crt -text -noout
 ```

@@ -49,3 +49,58 @@ podman system migrate
 And that's it!  Pull the image again and run it.  
 
 I wasted a lot of time troubleshooting this before I found the `podman system migrate` command.
+
+
+### Bonus
+
+If you're running on RHEL (tested on 7.8), there are some additional steps needed.
+
+
+```bash
+# Pulling the image may display the following:
+podman pull docker.io/sqtran/spring-boot:latest
+
+cannot clone: Invalid argument
+user namespaces are not enabled in /proc/sys/user/max_user_namespaces
+ERRO[0000] cannot re-exec process
+
+# Which can be fixed by setting this property with the following command:
+sudo sysctl user.max_user_namespaces=10000
+
+# Verify that it was set with this
+cat /proc/sys/user/max_user_namespace
+```
+
+After that, edit the `/etc/subuid` and `/etc/subgid` files.  RHEL seemed to want/require 65535 UIDs though, so make that adjustment.
+
+```
+ERRO[0000] not enough UIDs available for the user, at least 65535 are needed
+```
+
+Then I saw this strange message.
+```
+could not get runtime: error configuring CNI network plugin: failed to add watch on "/etc/cni/net.d/": no space left on device
+```
+I needed to free up some space on my drive.  Apparently 4.4Gb was enough for podman to pull the image.
+
+
+Now, I believe the following was residue from having both `Docker` and now `Podman` installed.
+
+```bash
+podman pull docker.io/sqtran/spring-boot:latest
+ERRO[0000] User-selected graph driver "overlay" overwritten by graph driver "vfs" from database - delete libpod local files to resolve 
+cannot clone: Invalid argument
+```
+
+It said to delete local files, but I didn't know which local files to look for.
+
+I did see an entry in the configure file `~/.config/containers/storage.conf` that referenced `overlay` though, so I deleted that line.
+
+```conf
+[storage]
+  driver = "overlay"  <-----delete this line !
+  runroot = "/run/user/20522/containers"
+   ...
+```
+
+And now it works!  Podman/Buildah seems to be a little slower than what I remember `Docker` used to do, but it's been a long time since the good ole `Dockerfile` days.

@@ -92,15 +92,10 @@ ERRO[0000] User-selected graph driver "overlay" overwritten by graph driver "vfs
 cannot clone: Invalid argument
 ```
 
-It said to delete local files, but I didn't know which local files to look for.
+It said to delete local files, but I didn't know which local files to look for.  A quick issue search on GitHub recommended we clear out all the old settings by deleting everything.
 
-I did see an entry in the configure file `~/.config/containers/storage.conf` that referenced `overlay` though, so I deleted that line.
-
-```conf
-[storage]
-  driver = "overlay"  <-----delete this line !
-  runroot = "/run/user/20522/containers"
-   ...
+```bash
+rm -rf ~/.config/containers ~/.local/share/containers
+podman info
 ```
-
-And now it works!  Podman/Buildah seems to be a little slower than what I remember `Docker` used to do, but it's been a long time since the good ole `Dockerfile` days.
+And now your builds will work, and be much, much faster now!

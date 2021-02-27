@@ -29,7 +29,7 @@ One of RestAssured core functionalities is the configuration of `filters`.  This
 Here's a code sample on how to set up the filter and write a test.
 
 
-```Java
+```java
 
     @Test
     public void myEndpointTest() {

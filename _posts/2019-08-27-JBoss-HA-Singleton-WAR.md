@@ -1,5 +1,4 @@
 ---
-layout: single
 title: JBoss EAP HA Singleton Web Applications
 date: 2019-08-27
 tags: jboss eap ha singleton

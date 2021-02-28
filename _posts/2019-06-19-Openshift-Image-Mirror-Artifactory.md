@@ -1,5 +1,4 @@
 ---
-layout: single
 title: OpenShift Image Mirror to Artifactory
 date: 2019-06-19
 tags: artifactory oc-mirror ocp

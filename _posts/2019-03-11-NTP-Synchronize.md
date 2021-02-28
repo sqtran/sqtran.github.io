@@ -1,5 +1,4 @@
 ---
-layout: single
 title: NTP Synchronize Command
 date: 2019-03-11
 tags: ntp

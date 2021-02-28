@@ -1,5 +1,4 @@
 ---
-layout: single
 title: JBoss Vault Cheat Sheet
 date: 2019-05-06
 tags: jboss eap vault

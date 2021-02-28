@@ -1,5 +1,4 @@
 ---
-layout: single
 title: JBoss EAP HA Testing
 date: 2019-04-14
 tags: jboss eap ha testing

@@ -1,5 +1,4 @@
 ---
-layout: single
 title: Podman on Fedora 32
 date: 2020-05-29
 tags: podman fedora

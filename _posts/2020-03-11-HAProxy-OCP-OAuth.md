@@ -1,5 +1,4 @@
 ---
-layout: single
 title: OCP Layer 7 Reencryption
 date: 2020-03-11
 tags: ocp haproxy proxy_protocol layer7

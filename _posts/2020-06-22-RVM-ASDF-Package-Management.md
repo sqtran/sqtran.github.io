@@ -1,5 +1,4 @@
 ---
-layout: single
 title: Moving from RVM to ASDF
 date: 2020-06-22
 tags: asdf

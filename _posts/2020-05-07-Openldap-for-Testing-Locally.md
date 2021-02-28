@@ -1,5 +1,4 @@
 ---
-layout: single
 title: OpenLDAP for Testing Locally
 date: 2020-05-07
 tags: openldap testing

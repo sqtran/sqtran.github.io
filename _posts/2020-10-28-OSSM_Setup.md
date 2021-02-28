@@ -1,5 +1,4 @@
 ---
-layout: single
 title: OSSM Setup
 date: 2020-10-28
 tags: ossm istio ocp openshift

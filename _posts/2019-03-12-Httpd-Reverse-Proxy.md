@@ -1,5 +1,4 @@
 ---
-layout: single
 title: Httpd Reverse Proxy
 date: 2019-03-12
 tags: apache httpd

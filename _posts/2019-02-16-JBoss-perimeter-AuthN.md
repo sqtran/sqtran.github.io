@@ -1,5 +1,4 @@
 ---
-layout: single
 title: JBoss EAP7 Perimeter Authentication
 date: 2019-02-16
 tags: jboss eap authn

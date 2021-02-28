@@ -1,5 +1,4 @@
 ---
-layout: single
 title: Getting Started with Data Virtualization
 date: 2016-08-01
 tags: jboss jdv

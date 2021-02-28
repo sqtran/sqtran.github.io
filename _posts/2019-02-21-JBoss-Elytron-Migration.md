@@ -1,5 +1,4 @@
 ---
-layout: single
 title: JBoss EAP7 Elytron Migration Gotchas
 date: 2019-02-21
 tags: jboss eap elytron migration

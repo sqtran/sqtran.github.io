@@ -1,5 +1,4 @@
 ---
-layout: single
 title: Containerized Apache Httpd
 date: 2019-03-13
 tags: containers apache httpd

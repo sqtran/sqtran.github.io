@@ -1,5 +1,4 @@
 ---
-layout: single
 title: Providing value on Unicorn Projects
 date: 2019-12-09
 tags: unicorn consulting

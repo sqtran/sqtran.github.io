@@ -1,5 +1,4 @@
 ---
-layout: single
 title: Openconnect on RHEL7
 date: 2018-12-03
 tags: openconnect

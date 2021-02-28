@@ -1,5 +1,4 @@
 ---
-layout: single
 title: Invalid certificate in Openshift Secret
 date: 2019-10-02
 tags: openshift secret certificate

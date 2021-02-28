@@ -1,5 +1,4 @@
 ---
-layout: single
 title: OCP/EAP and jboss-cli
 date: 2020-05-07
 tags: jboss ocp jboss-cli eap

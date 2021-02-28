@@ -1,5 +1,4 @@
 ---
-layout: single
 title: JGroups Channel Isolation
 date: 2019-04-04
 tags: jboss eap ha jgroups

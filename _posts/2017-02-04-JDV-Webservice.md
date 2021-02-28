@@ -1,5 +1,4 @@
 ---
-layout: single
 title: JDV Webservice Datasources
 date: 2017-02-04
 tags: jboss jdv webservice datasource

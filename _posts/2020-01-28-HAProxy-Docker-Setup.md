@@ -1,5 +1,4 @@
 ---
-layout: single
 title: HAProxy Docker Setup
 date: 2020-01-28
 tags: haproxy docker

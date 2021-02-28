@@ -1,5 +1,4 @@
 ---
-layout: single
 title: Impala Datasource with Kerberos
 date: 2016-09-02
 tags: jboss jdv impala kerberos datasource

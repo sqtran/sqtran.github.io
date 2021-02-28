@@ -1,5 +1,4 @@
 ---
-layout: single
 title: OpenSSL Tricks
 date: 2019-05-08
 tags: openssl

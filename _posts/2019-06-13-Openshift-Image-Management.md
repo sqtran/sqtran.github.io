@@ -1,5 +1,4 @@
 ---
-layout: single
 title: OpenShift Image Management
 date: 2019-06-13
 tags: image ocp

@@ -1,5 +1,4 @@
 ---
-layout: single
 title: Windows Batch Fun
 date: 2020-09-16
 tags: windows batch

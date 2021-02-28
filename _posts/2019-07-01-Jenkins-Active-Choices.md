@@ -1,5 +1,4 @@
 ---
-layout: single
 title: Active Choices Plugin + Image Registry
 date: 2019-07-01
 tags: artifactory

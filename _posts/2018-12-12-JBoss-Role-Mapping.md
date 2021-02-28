@@ -1,5 +1,4 @@
 ---
-layout: single
 title: JBoss EAP7 Role Mapping
 date: 2018-12-12
 tags: jboss eap

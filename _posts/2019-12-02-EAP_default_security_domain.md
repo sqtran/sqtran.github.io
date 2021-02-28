@@ -1,5 +1,4 @@
 ---
-layout: single
 title: JBoss EAP Default Security Domain
 date: 2019-12-02
 tags: jboss eap security

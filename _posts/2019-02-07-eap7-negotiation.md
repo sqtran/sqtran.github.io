@@ -1,5 +1,4 @@
 ---
-layout: single
 title: EAP7 SPNEGO Classloading
 date: 2019-02-07
 tags: jboss eap classloading spnego

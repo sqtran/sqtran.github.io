@@ -1,5 +1,4 @@
 ---
-layout: single
 title: Spring Boot No Main Manifest
 date: 2019-10-08
 tags: springboot java

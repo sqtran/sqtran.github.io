@@ -1,5 +1,4 @@
 ---
-layout: single
 title: Grafana AD Integration
 date: 2019-09-17
 tags: grafana ad

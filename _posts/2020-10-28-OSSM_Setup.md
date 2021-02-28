@@ -1,16 +1,16 @@
 ---
-layout: default
+layout: single
 title: OSSM Setup
+date: 2020-10-28
+#categories: ossm istio ocp openshift
 ---
-
-## OSSM Setup
 
 Red Hat's Istio offering is known as OpenShift Service Mesh, or `OSSM` for short.  Just like all their project vs product offerings, Red Hat expands upon the open source community by adding additional features to make OSSM a more complete offering.  Back in February, I gave a talk at Red Hat Microservices Day in Atlanta, which was recorded but I'll have to find a link for that later.  Part of the talk was a really great demo about how easy it was to instrument existing applications.  I used the Google Microservices Demo, which is a mock Hipster Shop.
 
 Almost 6 months later, I wanted to revisit that demo but found myself unable to without the assistance of my notes.  I didn't bother writing instructions at the time because I thought it was "just too easy", and nobody would really need help.  Well, I spent a little bit of time now to document that process, because I'm pretty sure I will forget how to do this again.
 
 
-### Prerequisites
+## Prerequisites
 
 I am using an OCP 4 cluster, which I have full cluster administrative permissions to.  This is required because I need to install 3 Operators from the Operator Hub.
 
@@ -19,19 +19,19 @@ I am using an OCP 4 cluster, which I have full cluster administrative permission
 - Kiali Operator
 
 
-### Configuration
+## Configuration
 
-#### Namespace
+### Namespace
 The default namespace is assumed to be `istio-system`, so that's a safe place to start.  Otherwise, you'll need to change the default locations in dependent service configuration files.  There aren't too many different places, but I prefer to customize only when necessary, so the default is good enough for now.
 
-#### Control Plane
+### Control Plane
 The Control Plane defaults with a name of `basic-install` which is good enough for now.  This one is safe to customize, but I just clicked to continue with all the defaults.
 
-#### Member Roll
+### Member Roll
 The ServiceMesh MemberRoll defines who is in your mesh.  It defaults with 2 sample namespaces, but you can immediately delete those and add the namespace of projects you want in your mesh.  It's okay if you don't know yet, as this can be modified at anytime.
 
 
-### Demo Application
+## Demo Application
 The Google Demo is located on Github, but here's the K8S manifest that contains all the pieces we'll need to deploy.  Take a look at the different Services and Deployments before blindly running any commands.
 https://raw.githubusercontent.com/GoogleCloudPlatform/microservices-demo/master/release/kubernetes-manifests.yaml
 
@@ -54,7 +54,7 @@ I looped through all the deployments to add an annotation, which is specific to 
 Give it a minute to bounce all the pods and then you're done ! .... almost
 
 
-#### Routing
+### Routing
 
 Internally, everything should be up and running, but there's no way to access this service externally.  Because this is now inside the Mesh, you'll need to create Istio specific objects in order to provide ingress into the Mesh.
 

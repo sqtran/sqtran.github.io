@@ -1,21 +1,22 @@
 ---
-layout: default
+layout: single
 title: JGroups Channel Isolation
+date: 2019-04-04
+#categories: jboss eap ha jgroups
 ---
-
-## JGroups Channel Isolation
 
 This is a continuation of my previous post about JGroups.  See previous post for more background.
 
+## Issue
+
 After standing up two HA clusters with UDP multicast, our users started seeing errors with their deployments.  The logs showed cross-pollination of UDP messages.  Messages from "clusterA" was joining "clusterB" as indicated by messages like the following in the `server.log` file.
 
+
 ```
-...
 2019-04-04 12:36:07,438 INFO  [org.infinispan.remoting.transport.jgroups.JGroupsTransport] (thread-2) ISPN000094: Received new cluster view for channel ejb: [clusterA02.steve.com:server-one|46] (5) [clusterA02.steve.com:server-one, clusterA03.steve.com:server-one, master:server-one, clusterB03.steve.com:server-one, clusterB02.steve.com:server-one]
 2019-04-04 12:36:07,438 INFO  [org.infinispan.remoting.transport.jgroups.JGroupsTransport] (thread-2) ISPN000094: Received new cluster view for channel ejb: [clusterA02.steve.com:server-one|46] (5) [clusterA02.steve.com:server-one, clusterA03.steve.com:server-one, master:server-one, clusterB03.steve.com:server-one, clusterB02.steve.com:server-one]
 2019-04-04 12:36:07,439 INFO  [org.infinispan.remoting.transport.jgroups.JGroupsTransport] (thread-2) ISPN000094: Received new cluster view for channel ejb: [clusterA02.steve.com:server-one|46] (5) [clusterA02.steve.com:server-one, clusterA03.steve.com:server-one, master:server-one, clusterB03.steve.com:server-one, clusterB02.steve.com:server-one]
 2019-04-04 12:36:07,439 INFO  [org.infinispan.remoting.transport.jgroups.JGroupsTransport] (thread-2) ISPN000094: Received new cluster view for channel ejb: [clusterA02.steve.com:server-one|46] (5) [clusterA02.steve.com:server-one, clusterA03.steve.com:server-one, master:server-one, clusterB03.steve.com:server-one, clusterB02.steve.com:server-one]
-...
 ```
 
 Searching the internet didn't yield any immediate results, so I took a look at the `domain.xml` file directly to see if anything stood out.  JBoss EAP comes with one `channel` configured by default, when you're using the `ha` or `full-ha` EAP profiles.
@@ -31,6 +32,8 @@ Searching the internet didn't yield any immediate results, so I took a look at t
 ```
 
 I'm guessing we could add additional channels, and update our configuration file to specify a particular channel to use.  The quick and dirty way to fix this was to change the cluster name from "ejb" to something unique for this cluster.  That way all the underlying plumbing wouldn't need to change because the default channel would still be `ee`.  
+
+## Solution
 
 I changed the cluster name to "ejb4steve" as an example, so the configuration looked like the following.  When moving this to a real environment, just make sure cluster is a unique name for that network.
 ```xml

@@ -2,7 +2,7 @@
 layout: single
 title: Contract Testing
 date: 2021-02-27
-categories: testing openapi swagger mockito junit
+#categories: testing openapi swagger mockito junit
 ---
 
 ## Background

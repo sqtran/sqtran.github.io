@@ -1,12 +1,16 @@
 ---
-layout: default
+layout: single
 title: Storage Benchmarking
+date: 2019-12-15
+#categories: benchmark bonnie++
 ---
 
-## Storage Benchmarking
+## Motivation
 
 There are various tools for benchmarking disk IO.  I recently created a [container toolbox project](https://github.com/sqtran/container-toolbox) for doing so, which is based on a handy tool called `bonnie++`, which I added to an `mainline-alpine nginx` base image.  It's a quick and dirty way to run some IO benchmarks to test different storage types, which is useful if you want to see real numbers on how your cloud-based disks.
 
+
+## Usage
 Essentially, you need to create a `PV` and `PVC` and mount it into your pod.  Shell into your running pod/container and run the following example commands.
 
 ```bash

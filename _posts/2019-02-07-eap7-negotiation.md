@@ -1,19 +1,21 @@
 ---
-layout: default
+layout: single
 title: EAP7 SPNEGO Classloading
+date: 2019-02-07
+#categories: jboss eap classloading spnego
 ---
-
-# EAP7 SPNEGO Classloading Issue
 
 I recently encountered an issue that I believe is a bug in Red Hat EAP 7.1.5, specifically in the classloading of SPNEGO classes in EAR files.  I'm not sure if this affects all subdeployments and dependent modules, but the symptoms I've seen would lead me to believe it *should*.  There isn't anything special about SPNEGO classes that would force the Classloader to behave differently with other dependent modules.
 
 I was working on integrating Single Sign On with my web application.  It required me to configure SPNEGO/Kerberos, with a fallback mechanism set to use another security-domain configured for Active Directory, as demonstrated [here](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.1/html/how_to_set_up_sso_with_kerberos) [1].  To make debugging easier, I used the jboss-[negotiation-toolkit](https://github.com/wildfly-security/jboss-negotiation/tree/master/jboss-negotiation-toolkit) [3] application, and validated that my configurations were correct.  I only saw an issue with SPNEGO classes when trying to deploy an EAR file.
 
+## Symptoms
+
 The symptoms appeared as a login prompt that seemed to be stuck in a loop.  Strange that the Kerberos configuration didn't work and it was falling back to AD, but we put that on hold and focused why we were stuck in this login loop.  We initially thought the username/password was not being passed to AD for authentication correctly.  What actually happened was that the SPNEGOLoginModule class was not being found by the classloader, so ClassNotFoundExceptions were printed in the logs.  I think this classloader error was fatal enough to break the SPNEGO security-domain, despite only being printed at the DEBUG level.  Since it broke the entire security-domain, it was never actually getting to the configuration that specified it would use the AD fallback mechanism.  I think it was actually defaulting to whatever the server uses when nothing is configured.  It wasn't the users.properties file though, cause that didn't seem to work either.
 
 The logs printed out that the classloader wasn't looking at all the jars defined in the module.xml file.  See `jboss-eap-7.1/modules/system/layers/base/org/jboss/security/negotiation/main`.  So to "assist" the classloader, I explicitly declared the JBoss module jar (`jboss-negotiation-spnego-3.0.4.Final-redhat-1.jar`) that contains the necessary classes to be available for all deployments, which is just a matter of setting it up the [Global Modules](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.1/html/configuration_guide/overview_of_class_loading_and_modules#add_a_global_module) [2].  After doing this, the embedded WAR file could now see and load the SPNEGO security-domain.  The logs also confirmed that the classloader found what it needed.
 
-```bash
+```
 2019-02-01 15:32:12,655 TRACE [org.jboss.modules] (default task-10) Finding class org.jboss.security.negotiation.spnego.SPNEGOLoginModule from Module "org.picketbox" from local module loader @340f438e (finder: local module finder @30c7da1e (roots: /opt/rh/eap7/root/usr/share/wildfly/modules,/opt/rh/eap7/root/usr/share/wildfly/modules/system/layers/base))
 2019-02-01 15:32:12,655 TRACE [org.jboss.modules] (default task-10) Class org.jboss.security.negotiation.spnego.SPNEGOLoginModule not found from Module "org.picketbox" from local module loader @340f438e (finder: local module finder @30c7da1e (roots: /opt/rh/eap7/root/usr/share/wildfly/modules,/opt/rh/eap7/root/usr/share/wildfly/modules/system/layers/base))
 2019-02-01 15:32:12,655 TRACE [org.jboss.modules] (default task-10) Finding class org.jboss.security.negotiation.spnego.SPNEGOLoginModule from Module "org.picketbox" from local module loader @340f438e (finder: local module finder @30c7da1e (roots: /opt/rh/eap7/root/usr/share/wildfly/modules,/opt/rh/eap7/root/usr/share/wildfly/modules/system/layers/base))
@@ -91,7 +93,9 @@ The logs printed out that the classloader wasn't looking at all the jars defined
 2019-02-01 15:32:12,656 DEBUG [io.undertow.request.security] (default task-10) Authentication outcome was NOT_AUTHENTICATED with method io.undertow.security.impl.BasicAuthenticationMechanism@19f339e5 for HttpServerExchange{ GET /mywebapp/ request {accept=[text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8], accept-language=[en-US,en;q=0.9,vi-VN;q=0.8,vi;q=0.7], accept-encoding=[gzip, deflate, br], dnt=[1], user-agent=[Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.67 Safari/537.36], authorization=[Basic dmVucmhlMTY6V2VsY29tZTFvZGZs], upgrade-insecure-requests=[1], Host=[dc1-d-a-common01.dev.odcloud.odfl.com:8543]} response {Expires=[0], Cache-Control=[no-cache, no-store, must-revalidate], X-Powered-By=[Undertow/1], Server=[JBoss-EAP/7], Pragma=[no-cache]}}
 ```
 
-So I added the following XML stanza into my `standalone.xml` or `domain.xml`.
+## Solution
+
+So I added the following XML stanza into my `standalone.xml` or `domain.xml`, which seems like it increased its order of precedence. 
 ```xml
 <subsystem xmlns="urn:jboss:domain:ee:4.0">
   <global-modules>
@@ -101,9 +105,8 @@ So I added the following XML stanza into my `standalone.xml` or `domain.xml`.
 </subsystem>
 ```
 
+## References
 
-Apologies for the paywall referenced resources ...
-
-1. https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.1/html/how_to_set_up_sso_with_kerberos/how_to_set_up_sso_for_jboss_eap_with_kerberos#configure_legacy_security_subsystem
-2. https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.1/html/configuration_guide/overview_of_class_loading_and_modules#add_a_global_module
-3. https://github.com/wildfly-security/jboss-negotiation/tree/master/jboss-negotiation-toolkit
+1. [https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.1/html/how_to_set_up_sso_with_kerberos/how_to_set_up_sso_for_jboss_eap_with_kerberos#configure_legacy_security_subsystem](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.1/html/how_to_set_up_sso_with_kerberos/how_to_set_up_sso_for_jboss_eap_with_kerberos#configure_legacy_security_subsystem)
+2. [https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.1/html/configuration_guide/overview_of_class_loading_and_modules#add_a_global_module](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.1/html/configuration_guide/overview_of_class_loading_and_modules#add_a_global_module)
+3. [https://github.com/wildfly-security/jboss-negotiation/tree/master/jboss-negotiation-toolkit](https://github.com/wildfly-security/jboss-negotiation/tree/master/jboss-negotiation-toolkit)

@@ -1,6 +1,8 @@
 ---
-layout: default
+layout: single
 title: Active Choices Plugin + Image Registry
+date: 2019-07-01
+#categories: artifactory
 ---
 
 ## Jenkins Active Choices Plugin + Image Registry
@@ -17,7 +19,7 @@ The scope in which the reactive parameter script is being run in is not the same
 
 A forum showed me how to programatically instantiate a `Jenkins Credential`.  Once instantiated, it behaves in similar fashion with the `withCredentials` DSL method.
 
-```Groovy
+```groovy
 import jenkins.model.*
 def creds = com.cloudbees.plugins.credentials.CredentialsProvider.lookupCredentials(com.cloudbees.plugins.credentials.Credentials.class, Jenkins.instance, null, null)
 def token = creds.find {it.id == 'my-secret-in-jenkins'}
@@ -29,7 +31,7 @@ println "${token.getSecret().getPlainText()}"
 The second half of the solution is actually pulling the data from the respective registries.  Good ole `curl` to the rescue to interact with the `REST` API.
 
 
-#### Openshift
+#### OpenShift
 ```bash
 curl -k https://<OCP_REGISTRY_ROUTE>/v2/<OCP_NAMESPACE>/<PROJECT_NAME>/tags/list -u any:<token>
 ```
@@ -40,7 +42,7 @@ Note the variables you use need to be global Jenkins variables, or references to
 
 The Active Choices parameter requires a list to be returned, which is as easy as transforming the resulting `JSON` into something easy to manipulate.  
 
-```Groovy
+```groovy
 import groovy.json.JsonSlurper
 
 // if you need to filter your results, you can use any of the Groovy collections closures
@@ -60,7 +62,7 @@ My curl command parameterized the artifactory_url and image_name.  The path "mys
 ### Example
 The entire `script` looks like this, although some of the variable substitution may not work in your case.  The `ENV` variable referenced comes from a parameter on the pipeline.
 
-```Groovy
+```groovy
 import groovy.json.JsonSlurper
 import jenkins.model.*
 
@@ -82,4 +84,4 @@ try {
 ```
 
 References
-1. https://wiki.jenkins.io/display/JENKINS/Active+Choices+Plugin
+1. [https://wiki.jenkins.io/display/JENKINS/Active+Choices+Plugin](https://wiki.jenkins.io/display/JENKINS/Active+Choices+Plugin)

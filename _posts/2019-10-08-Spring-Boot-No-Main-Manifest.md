@@ -1,10 +1,14 @@
 ---
-layout: default
+layout: single
 title: Spring Boot No Main Manifest
+date: 2019-10-08
+#categories: springboot java
 ---
 
-## Debugging a "no main manifest attribute"  problem
-This may seem obvious to some, but I see this happen to a lot of developers.  You deploy your Spring Boot application to your Kubernetes cluster (Openshift in my example), but the deployment never rolls out.  Looking into the pod logs you see the following.
+
+## Problem
+
+Seeing "no main manifest attribute" in your error message may seem obvious to some, but I see this stump a lot of developers I consult for.  You deploy your Spring Boot application to your Kubernetes cluster (Openshift in my example), but the deployment never rolls out.  Looking into the pod logs you see the following.
 
 ```java
 Starting the Java application using /opt/run-java/run-java.sh ...
@@ -13,6 +17,8 @@ no main manifest attribute, in /deployments/your-app.jar
 ```
 
 Before deploying to Openshift, running this locally would have given you clue that things might not work.  Executing a `mvn clean package spring-boot:run` would have quickly identified the runtime issue.
+
+## Solution
 
 The solution is to include the following in your `pom.xml` file.
 

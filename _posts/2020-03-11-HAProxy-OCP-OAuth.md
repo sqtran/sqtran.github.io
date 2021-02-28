@@ -1,9 +1,9 @@
 ---
-layout: default
+layout: single
 title: OCP Layer 7 Reencryption
+date: 2020-03-11
+#categories: ocp haproxy proxy_protocol layer7
 ---
-
-## OCP Layer 7 Reencryption
 
 With OCP 4.x, we lost functionality to configure the OCP ingress routers, which _should_ be fixed in a future release.
 
@@ -19,15 +19,14 @@ So until we have the PROXY_PROTOCOL in a future update of OCP4.x, we have to do 
 Note that switching from Layer 4 to Layer 7 will incur some performance penalties.  That's due to the additional overhead of decrypting TLS and reencrypting it.  
 
 
+## HAProxy Configurations
 
-### HAProxy Configurations
-
-#### Prerequisites
+### Prerequisites
 Three (3) VIPs and DNS entries are needed.  VIPs are not required if using 3 different load balancers, but that seems like a waste of resources.  In this configuration, a single external HAProxy that is configured with 3 VIPs.  The \*.apps certificate that is used in OCP will also be reused to decrypt/encrypt traffic.
 
 
 
-#### VIP 1
+### VIP 1
 The first VIP is for the `oc cli` tool.  We need an endpoint for 6443 traffic, which will point to the OCP masters.  The DNS entry associates api.<your_subdomain\> to this VIP.
 
 ```
@@ -44,7 +43,7 @@ backend be-ocp-api-servers
     server master3 master3.<your_subdomain>:6443 check
 ```
 
-#### VIP 2
+### VIP 2
 The second VIP is for OAuth.  For whatever reason, OCP did not like it when we tried to reencrypt traffic, so as a workaround, a VIP was created just to handle OAuth authentication traffic.  Any traffic heading to the OAuth route would just be forwarded along, as usual.  The DNS entry associates oauth-openshift.apps.<your_subdomain\> to this VIP.
 
 ```
@@ -61,7 +60,7 @@ backend be-oauth-route
     server infra3 infra3.<your_subdomain>:443 check
 ```
 
-#### VIP 3
+### VIP 3
 The third is for everything else.  Any traffic heading to \*.apps.<your_subdomain\> will be decrypted, x-forwarded-for headers added, and then reencrypted.
 
 The configuration also drops any existing `X-Forwarded-For` headers, in case a client tries to spoof its source IP.  Not required, but good practice.
@@ -96,6 +95,7 @@ backend be-route-https
     server infra3 infra3.<your_subdomain>:443 check ssl ca-file <path_to_cert>.crt
 ```
 
-### Reference
+## Reference
 
-http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt
+[http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt](http://www.haproxy.org/download/1.8/doc/proxy-protocol.txt
+)

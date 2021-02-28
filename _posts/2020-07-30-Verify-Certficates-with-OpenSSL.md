@@ -1,10 +1,11 @@
 ---
-layout: default
+layout: single
 title: Verify Certificates with OpenSSL
+date: 2020-07-30
+#categories: openssl certificates
 ---
 
-## Verify Certificates with OpenSSL
-
+## Background
 Working with certificates isn't as complicated as most developers seem to think.  There are plenty of guides and examples online to follow.  `OpenSSL` is probably the most powerful tool out there.
 
 A common task is to verify the SSL/TLS capabilities of a server.  If you need to interrogate a server to determine what protocols are allowed, use `OpenSSL` to connect to it.  The output may look arcane, but it's not really that bad.

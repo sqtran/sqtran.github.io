@@ -1,15 +1,18 @@
 ---
-layout: default
+layout: single
 title: JDV Cloudera/Impala Module
+date: 2016-09-01
+#categories: jboss jdv cloudera impala
 ---
 
-## Impala JDBC Driver Setup in EAP
-
+## Background
 JBoss EAP modules allows you to create a shared library that can be referenced by the platform, by any deployed application.  This is a good way to reduce code duplication if you have multiple applications bringing their own copy of a library.  This is also a good way to make sure every deployment is using a consistent version of a library.  A good use-case is when working with databases, and all your applications need a JDBC Driver.
 
 It's typically pretty easy to set up.  You just add a folder to $JBOSS_HOME/modules, create a module.xml file, drop in your jar(s) and call it a day.  Doing so for Cloudera's Impala drivers took a little more work than usual though.  This is what I had to do to get it to work on JDV 6.4, which should work on JBoss EAP as well.
 
-First, create your folder structure to in $JBOSS_HOME/modules.  I like to stay out of the "systems" directory as that folder's what comes with EAP out-of-the box.  It's just my preference to keep any of my customization in a separate area so that I don't accidentally break anything.   
+
+## Configuration
+First, create your folder structure to in $JBOSS_HOME/modules.  I like to stay out of the "systems" directory as that folder's what comes with EAP out-of-the box.  It's just my preference to keep any of my customization in a separate area so that I don't accidentally break anything.
 
 I created this file `$JBOSS_HOME/modules/org.apache.hadoop.impala/module.xml` with the following content.
 ```xml

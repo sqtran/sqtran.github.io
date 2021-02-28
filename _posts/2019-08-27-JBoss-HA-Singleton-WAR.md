@@ -1,9 +1,10 @@
 ---
-layout: default
+layout: single
 title: JBoss EAP HA Singleton Web Applications
+date: 2019-08-27
+#categories: jboss eap ha singleton
 ---
 
-## JBoss EAP HA Singleton Web Applications
 
 This is another entry about JBoss EAP, configured with HA, but now we're adding `singleton` web applications into the mix.
 
@@ -13,7 +14,10 @@ I'm basing my work off of the [ha-single-deployment](https://github.com/jboss-de
 
 Running `mvn clean package` produces a completely deployable jar file, but we're interested in creating a WAR file.  Luckily, it only takes a two modifications.  
 
-1.  Modify the `pom.xml` to change the packaging.
+## Steps
+
+###  Modify pom.xml
+You'll need to change the packaging format from EJB to WAR.
 
 ```xml
 <artifactId>ha-singleton-deployment</artifactId>
@@ -22,8 +26,9 @@ Running `mvn clean package` produces a completely deployable jar file, but we're
 <name>Quickstart: HA Singleton Deployment</name>
 ```
 
+### Move singleton-deployment.xml
 
-2. The sample project already has the singleton-deployment.xml file, so we just need to move it so that it's at the top level of the generated WAR.  Maven's convention is to look at the `webapp` folder, so just create that folder and move the META-INF folder there.
+The sample project already has the singleton-deployment.xml file, so we just need to move it so that it's at the top level of the generated WAR.  Maven's convention is to look at the `webapp` folder, so just create that folder and move the META-INF folder there.
 
 ```bash
 src/main

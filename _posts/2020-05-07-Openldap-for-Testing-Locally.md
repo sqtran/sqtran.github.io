@@ -1,23 +1,26 @@
 ---
-layout: default
+layout: single
 title: OpenLDAP for Testing Locally
+date: 2020-05-07
+#categories: openldap testing
 ---
 
-## OpenLDAP for Testing Locally
-
+## Motivation
 Enterprise middleware components usually requires integration with enterprise identity providers - such as Windows Active Directory.  There are many vendors in this space, but luckily there is a common protocol that can talk to most of these in a standard way.  We have LDAP - Lightweight Directory Access Protocol and the opensource tool, OpenLDAP.  
 
 If you've ever had to integrate with these components in the past, you'd understand that everyone sets up their directory trees differently.  There's probably best practices on how to organize the tree, and where/how to store certain attributes, but everyone customizes it for their specific organization.  That can cause quite a headache when it comes time for integration, such as for Authentication and Authorization.
 
 Standing up your own containerized OpenLDAP server is quick and painless way to test integration points, especially working in a disconnected environment.
 
-### Image
+Lastly, I'm a big Simpsons fan, hence why you'll see the Simpsons-based test data!
 
-The image being used is this https://hub.docker.com/r/openshift/openldap-2441-centos7/.  Even though this may not be the latest version of OpenLDAP, and it has a bold disclaimer that this is only meant to be used internally for testing their Openshift project, it still provides enough functionality for local testing.
+## Image
+
+The image being used is `https://hub.docker.com/r/openshift/openldap-2441-centos7/`.  Even though this may not be the latest version of OpenLDAP, and it has a bold disclaimer that this is only meant to be used internally for testing their Openshift project, it still provides enough functionality for local testing.
 
 One thing to note is the certificate it uses is expired, so the `ldaps://` protocol won't be able to establish a trusted secure connection.  It probably doesn't matter for testing purposes though.  If you really want to use this though, just turn off the certificate check by passing an environment variable to your ldap commands.
 
-### Configuration
+## Configuration
 
 An example `LDIF` is provided here for convenience.  Customize this for your specific use-case, or use your own `LDIF` file.
 
@@ -199,13 +202,13 @@ member: cn=Ralph Wiggum,ou=people,ou=intranet,dc=example,dc=com
 Note that the image honors some environment variables to change the default values, such as changing the administrative bind account name.  See the Github page https://github.com/openshift/openldap for a full list of all the variables.
 
 
-### Deployment
+## Deployment
 
-#### OCP
+### OCP
 
 It's fairly easy to just click on the deploy image button within the Openshift UI.  Even the most underpowered systems will deploy this in less than a minute.  The real bottleneck is network bandwidth though, as the image weighs in at 355MB.  
 
-#### Docker
+### Docker
 
 Running this locally also works, assuming you have Docker installed.
 
@@ -213,15 +216,15 @@ Running this locally also works, assuming you have Docker installed.
 docker run -it --rm openshift/openldap-2441-centos7
 ```
 
-#### Podman
-This container image unfortunately runs as root, so there is a little bit of work to get it to run correctly.  Instructions are TODO.
+### Podman
+This container image unfortunately runs as root, so there is a little bit of work to get it to run correctly.  I never got around to actually figuring this out, but if it's something you'd still like to see, email me and we can mob this problem together.
 
 
-### Useful Commands
+## Useful Commands
 
 If you visit the Github site, you'll see what the default username and passwords are.  Most of the commands require you to bind to an administrative account.  Here are some useful commands for interacting with OpenLDAP.
 
-#### Searching
+### Searching
 ```bash
 ldapsearch -h <host> -w admin -D "cn=Manager,dc=example,dc=com" -b "dc=example,dc=com"
 ```
@@ -231,7 +234,7 @@ With SSL, but ignoring certificate checks.
 LDAPTLS_REQCERT=never ldapsearch -w admin -D "cn=Manager,dc=example,dc=com" -b "dc=example,dc=com" -H ldaps://localhost:636 -vvv
 ```
 
-Response
+Sample Response
 ```bash
 # extended LDIF
 #
@@ -258,12 +261,12 @@ result: 0 Success
 ```
 
 
-#### Adding
+### Adding
 ```bash
 ldapadd -h <host> -w admin -D "cn=Manager,dc=example,dc=com" -f sample.ldif
 ```
 
-Response
+Sample Response
 ```bash
 adding new entry "ou=intranet,dc=example,dc=com"
 
@@ -274,7 +277,7 @@ adding new entry "ou=Test Engineering,ou=people,ou=intranet,dc=example,dc=com"
 adding new entry "cn=Steve Tester,ou=people,ou=intranet,dc=example,dc=com"
 ```
 
-#### Deleting
+### Deleting
 ```bash
 ldapdelete -h <host> -w admin -D "cn=Manager,dc=example,dc=com" "cn=Steve Tester,ou=people,ou=intranet,dc=example,dc=com"
 ldapdelete -h <host> -w admin -D "cn=Manager,dc=example,dc=com" "ou=Test Engineering,ou=people,ou=intranet,dc=example,dc=com"

@@ -1,13 +1,14 @@
 ---
-layout: default
+layout: single
 title: Podman on Fedora 32
+date: 2020-05-29
+#categories: podman fedora
 ---
 
-## Podman on Fedora 32
-
+## The Problem
 Running rootless `podman` on Fedora requires just a little customization.  There are lots of resources out there to help troubleshoot issues, but this is just a little reminder to myself on how I resolved it.  It might help someone else out there too.
 
-
+## The Solution
 Assuming `podman` is already installed via `yum` or `dnf`, the next step is to test logging into a registry.  This example uses `docker.io` but it can be anything.  You could also just build your own image too, and bypass this test all together.
 
 ```bash
@@ -51,7 +52,7 @@ And that's it!  Pull the image again and run it.
 I wasted a lot of time troubleshooting this before I found the `podman system migrate` command.
 
 
-### Bonus
+## The Bonus
 
 If you're running on RHEL (tested on 7.8), there are some additional steps needed.
 

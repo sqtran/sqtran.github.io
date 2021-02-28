@@ -3,7 +3,14 @@ layout: default
 title: Openshift Image Mirror to Artifactory
 ---
 
-## Openshift Image Mirror to Artifactory
+---
+layout: single
+title: OpenShift Image Mirror to Artifactory
+date: 2019-06-19
+#categories: artifactory oc-mirror ocp
+---
+
+## OpenShift Image Mirror to Artifactory
 
 I introduced the `oc image mirror` command that came out with the 3.11 release of the OC Client, in my previous post.  This article goes over the steps needed to get it integrated with Artifactory.
 
@@ -32,7 +39,7 @@ It's not difficult to hand-craft your own though, and heads up, there's an error
 If you're trying to `docker login` to a registry that uses self-signed certificates, and you don't have the root/intermediary CAs installed, you'll run into x509 certificate issues.  This is very common and it's described in great details all over the internet.  I update the `insecure-registries` stanza in the `/etc/docker/daemon.json` file.
 
 
-If you're wondering how to log into the Openshift Registry, just grab the external facing route and do the docker login.  **Keep in mind that if you're not using a service account, this password will expire and you'll need a way to refresh your saved configs.**
+If you're wondering how to log into the OpenShift Registry, just grab the external facing route and do the docker login.  **Keep in mind that if you're not using a service account, this password will expire and you'll need a way to refresh your saved configs.**
 
 ```bash
 $ oc login

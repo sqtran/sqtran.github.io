@@ -1,12 +1,15 @@
 ---
-layout: default
+layout: single
 title: Impala Datasource with Kerberos
+date: 2016-09-02
+#categories: jboss jdv impala kerberos datasource
 ---
 
-## Impala Datasource with Kerberos
+These are instructions on setting up an Impala EAP Datasource with Kerberos authentication on Windows.  Make sure you install your Impala drivers as a module too.  See previous post on how to do that if you haven't already done so.
 
-These are instructions on setting up an EAP Datasource with Kerberos authentication on Windows.  Make sure you install your Impala drivers as a module too.  See previous post on how to do that if you haven't already done so.
+## Configuration
 
+### System Properties
 Add the following system-properties in your standalone.xml (or domain.xml) configuration.  Note that `<system-properties>` are at the same level as `<extensions>`.
 
 
@@ -17,6 +20,8 @@ Add the following system-properties in your standalone.xml (or domain.xml) confi
 </system-properties>
 ```
 
+
+### Cache Container
 You'll also need to add a new cache-container configuration into the `Infinispan` subsystem.
 
 ```xml
@@ -31,6 +36,7 @@ You'll also need to add a new cache-container configuration into the `Infinispan
 </subsystem>
 ```
 
+#### Cache Container Details
 In the example above, we set:
 - **lifespan** : 59 minutes (in milliseconds) as being just below the 1 hour ticket lifespan as was used in our tests.
   Out of the box, Windows AD will issue tickets with a lifespan for 10h so you would for example set the lifespan to for example 9 hours.
@@ -38,8 +44,10 @@ In the example above, we set:
 - **max-idle**: 59 minutes (in milliseconds) : this is not very critical, it just means when a (still valid) ticket will be removed after it has not been used.
 - **max-entries**: the maximum number of (copies of) the kerberos ticket you want to keep in the cache. This is a one-to-one with the maximum number of configured connections in your datasource.
 
-See https://access.redhat.com/solutions/218863 for some additional information about how the `Infinispan` cache-container is configured.
+See [https://access.redhat.com/solutions/218863](https://access.redhat.com/solutions/218863) for some additional information about how the `Infinispan` cache-container is configured.
 
+
+### Security Domain
 Next, you'll need to add a security domain.
 
 ```xml
@@ -62,7 +70,7 @@ Next, you'll need to add a security domain.
 </security-domain>
 ```
 
-
+### Datasource
 Finally, add your datasources like you normally would.
 
 ```xml
@@ -84,6 +92,7 @@ Finally, add your datasources like you normally would.
 </datasources>
 ```
 
+### Datasource Details
 Some important notes about the configuration above:
 - **CAIssuedCertNamesMismatch** - If your Impala server's host name does not match the certificate (perhaps you used something self-signed without a SAN), you'll need to set this to 1
 - **SSL** - defaults to 0, set to 1 to enable SSL

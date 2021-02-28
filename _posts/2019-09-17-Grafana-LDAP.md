@@ -1,15 +1,18 @@
 ---
-layout: default
+layout: single
 title: Grafana AD Integration
+date: 2019-09-17
+#categories: grafana ad
 ---
 
-## Grafana with AD Integration Gotcha
 I ran into a rather odd issue with Grafana and AD integration.  It took about a day to pinpoint the issue, and hopefully this post will save someone some valuable hours in the future.  The solution is simple, and maybe it's something obvious that everyone already knows to do.  The error in the logs wasn't very clear, but luckily the solution is very quick to implement.
 
-
+## Symptoms
 The symptoms was I could log into Grafana with an AD backed user account, but any subsequent users login attempts would not authenticate.  Initial assumption was that the Service
 Account that it was binding with didn't have access to the particular subtree in AD - that was quickly proven wrong by as our AD accounts were getting locked after X unsuccessful login attempts.  Time to turn on Grafana debugging to gather more clues.
 
+
+## Debugging
 ```ini
 # Either "debug", "info", "warn", "error", "critical", default is "info"
 level = debug
@@ -30,6 +33,7 @@ After logging into Grafana with a local Administrator account, I was able to see
 
 What was happening was a new entry was being created in Grafana based on the information pulled from AD, via LDAP.  Due to a configuration oversight, there were several **required** attributes that needed to be configured.  So back in the `grafana.ini` file, we need to specify which element in the AD schema holds the email field.  For consistency's sake, I mapped the other fields of the user's Grafana profile too, so that it pulls back the correct information.   
 
+## Solution
 So long story short, this is what I needed in my configuration file.
 ```ini
 # Specify names of the ldap attributes your ldap uses

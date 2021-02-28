@@ -1,6 +1,8 @@
 ---
-layout: default
+layout: single
 title: Artifactory REST Examples
+date: 2019-07-23
+#categories: artifactory
 ---
 
 ## Artifactory REST Examples

@@ -1,14 +1,17 @@
 ---
-layout: default
+layout: single
 title: Windows Batch Fun
+date: 2020-09-16
+#categories: windows batch
 ---
 
-## Windows Batch Fun
+## Why?
 
-Most of my time is spent on either Red Hat Enterprise Linux for work, or Fedora for play.  But more times than not, my customers require that I remote into their environment.  Once inside, it's usually a virtual Windows environment, so I get to explore the Wild Wild Windows world.
+Most of my time is spent on either Red Hat Enterprise Linux for work, or Fedora for play.  But more times than not, my customers require that I remote into their environment.  It's usually a Virtual Desktop Interface, and most likely a Windows environment, so I get to explore the Wild Wild World of Windows.
 
-This time around, for whatever reason my putty sessions were not being persisted between Citrix Remote Sessions.  This was a pain because I was administering a ton of servers, and due to how the remote session worked, I couldn't cut and paste from my host machine into the virtual desktop.  Plus, all the server names did not follow a naming convention, so two servers in a DEV environment weren't necessarily closely named (like having a number or letter incremented).
+This time around, for whatever reason - my putty sessions were not being persisted between Citrix Remote Sessions.  This was a pain because I was administering a ton of servers, and due to how the remote session worked, I couldn't cut and paste from my host machine into the virtual desktop.  Plus, all the server names did not follow a naming convention, so two servers in a DEV environment weren't necessarily closely named (like having a number or letter incremented).
 
+## Batch Tips
 So my ~~lazy~~ efficient developer brain created a bunch of Windows Batch files to would organize my SSH sessions. I present to you a neat trick that probably took me an hour to work through, but will save me far more time in the future.
 
 First, I organized all my servers by name.  I prefixed all the server names with their respective environment.  In particular, I kept it to a 4 character prefix: `dev-`, `qat-`, `int-`, or `prd-`.  
@@ -31,4 +34,6 @@ int-server3258jgz.bat
 prd-server99935d3.bat
 prd-server0923ssd.bat
 ```
+
+## Really?
 Was this really necessary?  Maybe not, but I learned something new along the way.  What I should have probably done was figure out what's up with the Citrix Remote Session...

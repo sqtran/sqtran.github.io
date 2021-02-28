@@ -1,14 +1,17 @@
 ---
-layout: default
-title: jboss-cli on OCP
+layout: single
+title: OCP/EAP and jboss-cli
+date: 2020-05-07
+#categories: jboss ocp jboss-cli eap
 ---
 
-## jboss-cli on OCP
-
+## Management
 If your application runs on Red Hat JBoss Enterprise Application Platform, or uses JBoss EAP as a base (such as BRMS, Decision Manager, Data Virtualization, etc.), you can quickly modify the behavior of the platform by using the `jboss-cli.sh` utility.  Although not tested, I don't see why it wouldn't work for the community Wildfly platforms too.
 
+### Prerequisites
 The only prerequisite is that the `oc` client is installed on your host machine.  The `jboss-cli.sh` utility is running within the container, so it is not needed locally.  You can run pretty much any command, and most operations take effect immediately, but if not, issuing a `:reload` command works too.
 
+## Sample Commands
 Here's an example to change the log level to `DEBUG` mode.  The `--` after the `exec` command allows you to pass in flags to the command you are trying execute in the container.
 
 ```bash

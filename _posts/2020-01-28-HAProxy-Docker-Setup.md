@@ -1,15 +1,15 @@
 ---
-layout: default
+layout: single
 title: HAProxy Docker Setup
+date: 2020-01-28
+#categories: haproxy docker
 ---
-
-## Simple HAProxy Setup with Docker
-
+ 
 When doing local development/testing, I find myself constantly referring to online examples on setting up a local `HAProxy`, for various `HTTP Request` manipulations.  Instead of feeding Google the same searches ever other week, I finally decided to create a post in order to reference it myself, but also hoping that it will reinforce my understanding of it so that I don't need to look it up everytime.
 
 I'll be using `Docker` in this example, but `Podman` is definitely on the radar for next time.  Since most of us have probably already used `Docker` already, this should be a really quick post.
 
-
+## Steps
 First, pull the image.  I prefer to use the `Alpine` image since it's small, and quick to pull, but use whatever you need to use.  See `HAProxy`'s [Docker Hub](https://hub.docker.com/_/haproxy) page for a list of all versions.
 
 ```bash
@@ -50,7 +50,7 @@ docker run -v /tmp/haproxy.config:/usr/local/etc/haproxy/haproxy.cfg:Z --rm dock
 ```
 
 
-
+## Sample HAProxy Configuration
 Here's a sample HAProxy config file too.  It does some weird things that's only useful for myself, so your config will be completely different.
 ```
 global

@@ -2,7 +2,7 @@
 layout: single
 title: OpenShift Image Management
 date: 2019-06-13
-#categories: image ocp
+tags: image ocp
 ---
 
 In the containerized world, we no longer just move build artifacts (EARs, WARs, JARs, etc.) between servers.  We package those build artifacts along with runtime configurations and dependent libraries into self-contained immutable images, so that we have control over the entire application.  Everything we need is packaged in the image, so that running our containers is repeatable, to a certain degree.

@@ -2,7 +2,7 @@
 layout: single
 title: Enterprise Application Platform
 date: 2020-08-20
-#categories: jboss eap
+tags: jboss eap
 ---
 
 ## Background
@@ -10,7 +10,7 @@ So this post is more of a reference for myself, since I frequently get asked the
 
 JBoss AS was the community project, which has evolved into a new community project called `Wildfly`.
 
-Versions of `EAP` don't directly correspond with versions of `Wildfly` though, as `EAP` is the "product" and `Wildfly` is the "project".  
+Versions of `EAP` don't directly correspond with versions of `Wildfly` though, as `EAP` is the "product" and `Wildfly` is the "project".
 
 A lot of bug fixes happen upstream, and eventually get ported back into the product by the Red Hat engineering team.  Since `EAP` is their supported offering, the bug fixes actually get ported back into multiple versions of `EAP`.
 

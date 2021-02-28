@@ -2,7 +2,7 @@
 layout: single
 title: Openconnect on RHEL7
 date: 2018-12-03
-#categories: openconnect
+tags: openconnect
 ---
 
 ## Background
@@ -18,12 +18,12 @@ First, you'll need to make sure openconnect is installed, or install it if it's 
 sudo yum install -y openconnect
 ```
 
-You then connect with the following.  The actual flags required will be different depending on what the VPN server requires.  The good-ole-man pages is still the best place to find out more.  
+You then connect with the following.  The actual flags required will be different depending on what the VPN server requires.  The good-ole-man pages is still the best place to find out more.
 ```bash
 sudo openconnect -v vpn_host_address -u username
 ```
 
-Unless the VPN server has publicly issued certificates, you'll probably get a warning about connecting to the server for the first time.  
+Unless the VPN server has publicly issued certificates, you'll probably get a warning about connecting to the server for the first time.
 
 You can pass in this flag if you want to suppress that warning `--servercert sha256:XXXXX`
 

@@ -2,7 +2,7 @@
 layout: single
 title: JBoss EAP Default Security Domain
 date: 2019-12-02
-#categories: jboss eap security
+tags: jboss eap security
 ---
 
 A default security-domain can be configured in the Undertow subsystem of EAP, so that it is applied to all deployments.  This gives applications the ability to *not* specify a particular security-domain, which is useful if all applications should use a common domain, which follows the `DRY` principle of not duplicating code.

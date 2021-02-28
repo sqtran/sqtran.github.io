@@ -2,7 +2,7 @@
 layout: single
 title: Podman on Fedora 32
 date: 2020-05-29
-#categories: podman fedora
+tags: podman fedora
 ---
 
 ## The Problem
@@ -47,7 +47,7 @@ After making the changes to `/etc/subuid` and `/etc/subgid`, run the following c
 podman system migrate
 ```
 
-And that's it!  Pull the image again and run it.  
+And that's it!  Pull the image again and run it.
 
 I wasted a lot of time troubleshooting this before I found the `podman system migrate` command.
 
@@ -89,7 +89,7 @@ Now, I believe the following was residue from having both `Docker` and now `Podm
 
 ```bash
 podman pull docker.io/sqtran/spring-boot:latest
-ERRO[0000] User-selected graph driver "overlay" overwritten by graph driver "vfs" from database - delete libpod local files to resolve 
+ERRO[0000] User-selected graph driver "overlay" overwritten by graph driver "vfs" from database - delete libpod local files to resolve
 cannot clone: Invalid argument
 ```
 

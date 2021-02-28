@@ -2,7 +2,7 @@
 layout: single
 title: Httpd Reverse Proxy
 date: 2019-03-12
-#categories: apache httpd
+tags: apache httpd
 ---
 
 This is how you set up a reverse proxy with Apache Httpd on RHEL 7.5

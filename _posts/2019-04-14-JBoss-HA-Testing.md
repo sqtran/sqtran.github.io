@@ -2,7 +2,7 @@
 layout: single
 title: JBoss EAP HA Testing
 date: 2019-04-14
-#categories: jboss eap ha testing
+tags: jboss eap ha testing
 ---
 
 This is another continuation of my previous post about JGroups.  By now, you've probably already configured your EAP servers in HA mode, and you'll need a way to verify that this is even working.  We should use a sample test program before attempting to deploy a real application, just to eliminate any variables that may interrupt our clustering tests.

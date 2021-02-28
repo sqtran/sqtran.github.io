@@ -2,7 +2,7 @@
 layout: single
 title: JGroups Channel Isolation
 date: 2019-04-04
-#categories: jboss eap ha jgroups
+tags: jboss eap ha jgroups
 ---
 
 This is a continuation of my previous post about JGroups.  See previous post for more background.
@@ -31,7 +31,7 @@ Searching the internet didn't yield any immediate results, so I took a look at t
 </subsystem>
 ```
 
-I'm guessing we could add additional channels, and update our configuration file to specify a particular channel to use.  The quick and dirty way to fix this was to change the cluster name from "ejb" to something unique for this cluster.  That way all the underlying plumbing wouldn't need to change because the default channel would still be `ee`.  
+I'm guessing we could add additional channels, and update our configuration file to specify a particular channel to use.  The quick and dirty way to fix this was to change the cluster name from "ejb" to something unique for this cluster.  That way all the underlying plumbing wouldn't need to change because the default channel would still be `ee`.
 
 ## Solution
 

@@ -2,17 +2,17 @@
 layout: single
 title: JBoss EAP HA Singleton Web Applications
 date: 2019-08-27
-#categories: jboss eap ha singleton
+tags: jboss eap ha singleton
 ---
 
 
 This is another entry about JBoss EAP, configured with HA, but now we're adding `singleton` web applications into the mix.
 
-The `jboss-developer` community has a project on Github that has a ton of ready-to-go examples. See [jboss-eap-quickstarts](https://github.com/jboss-developer/jboss-eap-quickstarts/) to see all their different quickstarts.  
+The `jboss-developer` community has a project on Github that has a ton of ready-to-go examples. See [jboss-eap-quickstarts](https://github.com/jboss-developer/jboss-eap-quickstarts/) to see all their different quickstarts.
 
 I'm basing my work off of the [ha-single-deployment](https://github.com/jboss-developer/jboss-eap-quickstarts/tree/7.2.0.GA/ha-singleton-deployment) project, in the 7.2.0.GA branch.
 
-Running `mvn clean package` produces a completely deployable jar file, but we're interested in creating a WAR file.  Luckily, it only takes a two modifications.  
+Running `mvn clean package` produces a completely deployable jar file, but we're interested in creating a WAR file.  Luckily, it only takes a two modifications.
 
 ## Steps
 

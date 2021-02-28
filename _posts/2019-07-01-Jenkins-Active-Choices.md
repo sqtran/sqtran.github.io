@@ -2,7 +2,7 @@
 layout: single
 title: Active Choices Plugin + Image Registry
 date: 2019-07-01
-#categories: artifactory
+tags: artifactory
 ---
 
 ## Jenkins Active Choices Plugin + Image Registry
@@ -40,13 +40,13 @@ The **any** username is **arbitrary**. I believe any String can be used.  The on
 
 Note the variables you use need to be global Jenkins variables, or references to other parameters.  Although you can't tell in my example, OCP_REGISTRY_ROUTE is a global variable, and the other two are parameters on the same page that must be selected before getting to this parameter.
 
-The Active Choices parameter requires a list to be returned, which is as easy as transforming the resulting `JSON` into something easy to manipulate.  
+The Active Choices parameter requires a list to be returned, which is as easy as transforming the resulting `JSON` into something easy to manipulate.
 
 ```groovy
 import groovy.json.JsonSlurper
 
 // if you need to filter your results, you can use any of the Groovy collections closures
-// return new JsonSlurper().parseText(curl.execute().text).tags.findAll { it.contains("some filter value") }.sort()   
+// return new JsonSlurper().parseText(curl.execute().text).tags.findAll { it.contains("some filter value") }.sort()
 return new JsonSlurper().parseText(curl.execute().text).tags.sort()
 ```
 

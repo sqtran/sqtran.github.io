@@ -2,7 +2,7 @@
 layout: single
 title: Moving from RVM to ASDF
 date: 2020-06-22
-#categories: asdf
+tags: asdf
 ---
 
 ## Motivation
@@ -14,7 +14,7 @@ What I really like about this tool is you can customize the specific versions fo
 
 
 ## Uninstall RVM
-If you're coming from an existing installation of RVM, uninstalling it is very simple and straightforward.  Run the `rvm implode` command and it will delete itself, which basically just does an `rm -rf on the ~/.rvm`.  There might be some residual configurations laying around in `.bash_profile` and `.bashrc`, so you'll have to clean that up yourself.  
+If you're coming from an existing installation of RVM, uninstalling it is very simple and straightforward.  Run the `rvm implode` command and it will delete itself, which basically just does an `rm -rf on the ~/.rvm`.  There might be some residual configurations laying around in `.bash_profile` and `.bashrc`, so you'll have to clean that up yourself.
 
 ## Install ASDF
 Installing this new tool was also very simple an straightforward.  Visit their home page for detailed instructions.  https://asdf-vm.com/#/core-manage-asdf-vm
@@ -28,7 +28,7 @@ Once installed, you have to add the appropriate plugin into the tool with the fo
 
 ```bash
 asdf plugin add ruby
-```  
+```
 
 The plugins tell `asdf` where and how to install the different versions of tools.  You'll need to install a specific version of ruby now.
 
@@ -40,9 +40,9 @@ The global part isn't needed until you have multiple versions of tools installed
 
 ## Where does everything go?
 
-If you're like me, you want to know where things are getting installed to.  
+If you're like me, you want to know where things are getting installed to.
 
-Take a look at the `~/.asdf/installs` folder.  
+Take a look at the `~/.asdf/installs` folder.
 
 ```bash
 du -h -d 1 ~/.asdf/installs/ruby

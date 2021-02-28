@@ -2,7 +2,7 @@
 layout: single
 title: JBoss EAP7 Role Mapping
 date: 2018-12-12
-#categories: jboss eap
+tags: jboss eap
 ---
 
 Without Elytron, the EAP legacy security domain had a mapping-module that let you map between your domain-specific roles/groups to your application-specific roles.  This is necessary when your application has different role names that are loosely based on what your domain calls them.

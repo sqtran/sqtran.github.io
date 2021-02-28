@@ -2,9 +2,9 @@
 layout: single
 title: HAProxy Docker Setup
 date: 2020-01-28
-#categories: haproxy docker
+tags: haproxy docker
 ---
- 
+
 When doing local development/testing, I find myself constantly referring to online examples on setting up a local `HAProxy`, for various `HTTP Request` manipulations.  Instead of feeding Google the same searches ever other week, I finally decided to create a post in order to reference it myself, but also hoping that it will reinforce my understanding of it so that I don't need to look it up everytime.
 
 I'll be using `Docker` in this example, but `Podman` is definitely on the radar for next time.  Since most of us have probably already used `Docker` already, this should be a really quick post.

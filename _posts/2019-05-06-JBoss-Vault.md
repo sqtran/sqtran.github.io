@@ -2,7 +2,7 @@
 layout: single
 title: JBoss Vault Cheat Sheet
 date: 2019-05-06
-#categories: jboss eap vault
+tags: jboss eap vault
 ---
 
 This is a quick and dirty cheat-sheet for manipulating a JBoss Vault.  I tend to forget and relearn these commands frequently, so this should at least make it easier to start back up.

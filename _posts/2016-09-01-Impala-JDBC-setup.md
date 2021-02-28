@@ -2,7 +2,7 @@
 layout: single
 title: JDV Cloudera/Impala Module
 date: 2016-09-01
-#categories: jboss jdv cloudera impala
+tags: jboss jdv cloudera impala
 ---
 
 ## Background

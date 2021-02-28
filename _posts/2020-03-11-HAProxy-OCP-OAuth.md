@@ -2,7 +2,7 @@
 layout: single
 title: OCP Layer 7 Reencryption
 date: 2020-03-11
-#categories: ocp haproxy proxy_protocol layer7
+tags: ocp haproxy proxy_protocol layer7
 ---
 
 With OCP 4.x, we lost functionality to configure the OCP ingress routers, which _should_ be fixed in a future release.
@@ -16,7 +16,7 @@ The OCP routers are usually not sitting at the edge of the network, so traffic i
 
 So until we have the PROXY_PROTOCOL in a future update of OCP4.x, we have to do it the old fashioned way and manipulate X-Forwarded-For headers.  Manipulating the headers is easy when only working with HTTP traffic, but is impossible with HTTPS.  To get around this, we will need to decrypt HTTPS traffic, modify the headers, and then re-encrypt it.  This is a commonly implemented solution, not just for Openshift.
 
-Note that switching from Layer 4 to Layer 7 will incur some performance penalties.  That's due to the additional overhead of decrypting TLS and reencrypting it.  
+Note that switching from Layer 4 to Layer 7 will incur some performance penalties.  That's due to the additional overhead of decrypting TLS and reencrypting it.
 
 
 ## HAProxy Configurations

@@ -2,7 +2,7 @@
 layout: single
 title: JGroups Multicast
 date: 2019-04-04
-#categories: jboss eap ha jgroups multicast
+tags: jboss eap ha jgroups multicast
 ---
 
 These are some basic JGroups Multicast debugging steps.

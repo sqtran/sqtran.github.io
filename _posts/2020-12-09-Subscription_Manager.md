@@ -2,7 +2,7 @@
 layout: single
 title: Subscription Manager
 date: 2020-12-09
-#categories: subscription-manager yum
+tags: subscription-manager yum
 ---
 
 

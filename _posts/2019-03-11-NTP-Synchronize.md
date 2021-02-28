@@ -2,7 +2,7 @@
 layout: single
 title: NTP Synchronize Command
 date: 2019-03-11
-#categories: ntp
+tags: ntp
 ---
 
 Figured I'd create a quick paragraph blog entry that describes how to synchronize your system clock with The Atomic Clock.

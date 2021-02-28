@@ -2,11 +2,11 @@
 layout: single
 title: OpenLDAP for Testing Locally
 date: 2020-05-07
-#categories: openldap testing
+tags: openldap testing
 ---
 
 ## Motivation
-Enterprise middleware components usually requires integration with enterprise identity providers - such as Windows Active Directory.  There are many vendors in this space, but luckily there is a common protocol that can talk to most of these in a standard way.  We have LDAP - Lightweight Directory Access Protocol and the opensource tool, OpenLDAP.  
+Enterprise middleware components usually requires integration with enterprise identity providers - such as Windows Active Directory.  There are many vendors in this space, but luckily there is a common protocol that can talk to most of these in a standard way.  We have LDAP - Lightweight Directory Access Protocol and the opensource tool, OpenLDAP.
 
 If you've ever had to integrate with these components in the past, you'd understand that everyone sets up their directory trees differently.  There's probably best practices on how to organize the tree, and where/how to store certain attributes, but everyone customizes it for their specific organization.  That can cause quite a headache when it comes time for integration, such as for Authentication and Authorization.
 
@@ -206,7 +206,7 @@ Note that the image honors some environment variables to change the default valu
 
 ### OCP
 
-It's fairly easy to just click on the deploy image button within the Openshift UI.  Even the most underpowered systems will deploy this in less than a minute.  The real bottleneck is network bandwidth though, as the image weighs in at 355MB.  
+It's fairly easy to just click on the deploy image button within the Openshift UI.  Even the most underpowered systems will deploy this in less than a minute.  The real bottleneck is network bandwidth though, as the image weighs in at 355MB.
 
 ### Docker
 

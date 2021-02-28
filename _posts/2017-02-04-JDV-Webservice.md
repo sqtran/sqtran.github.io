@@ -2,10 +2,10 @@
 layout: single
 title: JDV Webservice Datasources
 date: 2017-02-04
-#categories: jboss jdv webservice datasource
+tags: jboss jdv webservice datasource
 ---
 
-JBoss Data Virtualization has the ability to connect with Web Services, and treat them as a plain datasource. 
+JBoss Data Virtualization has the ability to connect with Web Services, and treat them as a plain datasource.
 
 ## Instructions
 For information on how to create a web service based datasource, take a look at these articles.

@@ -2,7 +2,7 @@
 layout: single
 title: Providing value on Unicorn Projects
 date: 2019-12-09
-#categories: unicorn consulting
+tags: unicorn consulting
 ---
 
 Most of my time in consulting is spent mentoring and enabling customers.  We all know customers come in many different flavors, with various levels of proficiency.  It's rare to find a customer that is already self-sufficient, both technically and culturally (understands the devops/agile mentality).  I had the chance to see such mythical creature, and it challenged me in ways I never even considered was possible.

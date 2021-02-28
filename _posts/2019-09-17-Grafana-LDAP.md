@@ -2,7 +2,7 @@
 layout: single
 title: Grafana AD Integration
 date: 2019-09-17
-#categories: grafana ad
+tags: grafana ad
 ---
 
 I ran into a rather odd issue with Grafana and AD integration.  It took about a day to pinpoint the issue, and hopefully this post will save someone some valuable hours in the future.  The solution is simple, and maybe it's something obvious that everyone already knows to do.  The error in the logs wasn't very clear, but luckily the solution is very quick to implement.
@@ -29,9 +29,9 @@ t=2019-09-17T17:56:52+0000 lvl=dbug msg="Ldap User found" logger=ldap info="(*ld
 t=2019-09-17T17:56:52+0000 lvl=eror msg="Error while trying to authenticate user" logger=context userId=0 orgId=0 uname= error="UNIQUE constraint failed: user.email"
 ```
 
-After logging into Grafana with a local Administrator account, I was able to see the accounts being created after each successful **first** login.  It was creating an entry with a blank username and blank email.  Seeing the empty entry on the GUI, along with the `error="UNIQUE constraint failed: user.email"` message in the log was enough for me to correlate the two together.  
+After logging into Grafana with a local Administrator account, I was able to see the accounts being created after each successful **first** login.  It was creating an entry with a blank username and blank email.  Seeing the empty entry on the GUI, along with the `error="UNIQUE constraint failed: user.email"` message in the log was enough for me to correlate the two together.
 
-What was happening was a new entry was being created in Grafana based on the information pulled from AD, via LDAP.  Due to a configuration oversight, there were several **required** attributes that needed to be configured.  So back in the `grafana.ini` file, we need to specify which element in the AD schema holds the email field.  For consistency's sake, I mapped the other fields of the user's Grafana profile too, so that it pulls back the correct information.   
+What was happening was a new entry was being created in Grafana based on the information pulled from AD, via LDAP.  Due to a configuration oversight, there were several **required** attributes that needed to be configured.  So back in the `grafana.ini` file, we need to specify which element in the AD schema holds the email field.  For consistency's sake, I mapped the other fields of the user's Grafana profile too, so that it pulls back the correct information.
 
 ## Solution
 So long story short, this is what I needed in my configuration file.

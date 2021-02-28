@@ -2,7 +2,7 @@
 layout: single
 title: OSSM Setup
 date: 2020-10-28
-#categories: ossm istio ocp openshift
+tags: ossm istio ocp openshift
 ---
 
 Red Hat's Istio offering is known as OpenShift Service Mesh, or `OSSM` for short.  Just like all their project vs product offerings, Red Hat expands upon the open source community by adding additional features to make OSSM a more complete offering.  Back in February, I gave a talk at Red Hat Microservices Day in Atlanta, which was recorded but I'll have to find a link for that later.  Part of the talk was a really great demo about how easy it was to instrument existing applications.  I used the Google Microservices Demo, which is a mock Hipster Shop.

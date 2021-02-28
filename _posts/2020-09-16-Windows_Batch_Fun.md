@@ -2,7 +2,7 @@
 layout: single
 title: Windows Batch Fun
 date: 2020-09-16
-#categories: windows batch
+tags: windows batch
 ---
 
 ## Why?
@@ -14,7 +14,7 @@ This time around, for whatever reason - my putty sessions were not being persist
 ## Batch Tips
 So my ~~lazy~~ efficient developer brain created a bunch of Windows Batch files to would organize my SSH sessions. I present to you a neat trick that probably took me an hour to work through, but will save me far more time in the future.
 
-First, I organized all my servers by name.  I prefixed all the server names with their respective environment.  In particular, I kept it to a 4 character prefix: `dev-`, `qat-`, `int-`, or `prd-`.  
+First, I organized all my servers by name.  I prefixed all the server names with their respective environment.  In particular, I kept it to a 4 character prefix: `dev-`, `qat-`, `int-`, or `prd-`.
 
 Then I created a batch file with the following content.
 ```bat
@@ -22,7 +22,7 @@ set name=%~n0
 start putty.exe -ssh username@%name:~4%
 ```
 
-I didn't want to open up each file and add the server name to it, since the file name already indicated the server.  So, what the `.bat` file above does is take its own file name as a variable and strips off the first 4 characters.   I didn't know Windows Batch files were so flexible.  
+I didn't want to open up each file and add the server name to it, since the file name already indicated the server.  So, what the `.bat` file above does is take its own file name as a variable and strips off the first 4 characters.   I didn't know Windows Batch files were so flexible.
 
 So now I'm left with a folder with several dozens of these batch files.  An added benefit is adding new servers to my inventory/folder is quite easy.  All I gotta do is just copy any one of these, and rename it with the proper server name.
 

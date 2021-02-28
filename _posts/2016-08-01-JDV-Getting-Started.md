@@ -2,7 +2,7 @@
 layout: single
 title: Getting Started with Data Virtualization
 date: 2016-08-01
-#categories: jboss jdv
+tags: jboss jdv
 ---
 
 The purpose of this document is to help new developers and projects become familiar with the JBoss Data Virtualization environment.

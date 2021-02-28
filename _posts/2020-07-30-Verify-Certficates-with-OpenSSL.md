@@ -2,7 +2,7 @@
 layout: single
 title: Verify Certificates with OpenSSL
 date: 2020-07-30
-#categories: openssl certificates
+tags: openssl certificates
 ---
 
 ## Background

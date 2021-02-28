@@ -2,7 +2,7 @@
 layout: single
 title: Storage Benchmarking
 date: 2019-12-15
-#categories: benchmark bonnie++
+tags: benchmark bonnie++
 ---
 
 ## Motivation
@@ -20,7 +20,7 @@ bonnie++ -d /tmp/nfs-mnt/ -x 10 -n 10 -m nfs-mnt > nfs-mnt.txt &
 bonnie++ -d /tmp/thin-mnt/ -x 10 -n 10 -m thin-mnt > thin-mnt.txt &
 ```
 
-Above, I am testing a VMWare VMDK with thin provision, and a NetApp NFS export.  It doesn't matter what you call the actual folders, but it would make more sense to name them something based on what type of storage it actually is.  
+Above, I am testing a VMWare VMDK with thin provision, and a NetApp NFS export.  It doesn't matter what you call the actual folders, but it would make more sense to name them something based on what type of storage it actually is.
 
 After the tests are completed, run the following to convert the CSV into HTML
 ```bash

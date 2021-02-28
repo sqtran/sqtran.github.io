@@ -2,7 +2,7 @@
 layout: single
 title: Invalid certificate in Openshift Secret
 date: 2019-10-02
-#categories: openshift secret certificate
+tags: openshift secret certificate
 ---
 
 I saw this error when I passed in the wrong certificate format in my Secret.  It was the binary encoded DER format, but Openshift requires it to be base64 encoded.

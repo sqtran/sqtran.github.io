@@ -2,14 +2,14 @@
 layout: single
 title: Artifactory REST Examples
 date: 2019-07-23
-#categories: artifactory
+tags: artifactory
 ---
 
 ## Artifactory REST Examples
 
 Artifactory has a pretty robust REST interface, but their documentation does not have the best examples.  I find myself constantly digging through my notes and old work in order to remember the syntax.
 
-Most of API calls I commonly use are in the context of CICD, and usually originate from Jenkins.  These are the most forgotten image manipulation commands I use.  
+Most of API calls I commonly use are in the context of CICD, and usually originate from Jenkins.  These are the most forgotten image manipulation commands I use.
 
 
 ###  Deleting Images

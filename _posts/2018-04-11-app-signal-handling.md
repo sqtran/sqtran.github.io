@@ -2,7 +2,7 @@
 layout: single
 title: Application Signal Handling
 date: 2018-04-11
-#categories: appdev containers ocp springboot
+tags: appdev containers ocp springboot
 ---
 
 ## Signal Handling

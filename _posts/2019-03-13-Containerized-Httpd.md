@@ -2,7 +2,7 @@
 layout: single
 title: Containerized Apache Httpd
 date: 2019-03-13
-#categories: containers apache httpd
+tags: containers apache httpd
 ---
 
 This is an expansion of what I wrote about yesterday.  I took the Httpd reverse proxy setup and containerized it so that I wouldn't need to install Httpd locally, nor open up SELinux rules that I don't want to keep open permanently.
@@ -18,7 +18,7 @@ I had to do it this way because I ran into permission issues when trying to volu
 
 ## Build
 
-Build the container and see for yourself. 
+Build the container and see for yourself.
 
 ```bash
 sudo systemctl start docker

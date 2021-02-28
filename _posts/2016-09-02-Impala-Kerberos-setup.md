@@ -2,7 +2,7 @@
 layout: single
 title: Impala Datasource with Kerberos
 date: 2016-09-02
-#categories: jboss jdv impala kerberos datasource
+tags: jboss jdv impala kerberos datasource
 ---
 
 These are instructions on setting up an Impala EAP Datasource with Kerberos authentication on Windows.  Make sure you install your Impala drivers as a module too.  See previous post on how to do that if you haven't already done so.

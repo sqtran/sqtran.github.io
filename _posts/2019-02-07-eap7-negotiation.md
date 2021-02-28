@@ -2,7 +2,7 @@
 layout: single
 title: EAP7 SPNEGO Classloading
 date: 2019-02-07
-#categories: jboss eap classloading spnego
+tags: jboss eap classloading spnego
 ---
 
 I recently encountered an issue that I believe is a bug in Red Hat EAP 7.1.5, specifically in the classloading of SPNEGO classes in EAR files.  I'm not sure if this affects all subdeployments and dependent modules, but the symptoms I've seen would lead me to believe it *should*.  There isn't anything special about SPNEGO classes that would force the Classloader to behave differently with other dependent modules.
@@ -95,7 +95,7 @@ The logs printed out that the classloader wasn't looking at all the jars defined
 
 ## Solution
 
-So I added the following XML stanza into my `standalone.xml` or `domain.xml`, which seems like it increased its order of precedence. 
+So I added the following XML stanza into my `standalone.xml` or `domain.xml`, which seems like it increased its order of precedence.
 ```xml
 <subsystem xmlns="urn:jboss:domain:ee:4.0">
   <global-modules>

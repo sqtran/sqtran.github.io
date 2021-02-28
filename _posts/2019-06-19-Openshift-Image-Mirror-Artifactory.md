@@ -1,13 +1,8 @@
 ---
-layout: default
-title: Openshift Image Mirror to Artifactory
----
-
----
 layout: single
 title: OpenShift Image Mirror to Artifactory
 date: 2019-06-19
-#categories: artifactory oc-mirror ocp
+tags: artifactory oc-mirror ocp
 ---
 
 ## OpenShift Image Mirror to Artifactory

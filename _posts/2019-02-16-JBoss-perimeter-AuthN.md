@@ -2,7 +2,7 @@
 layout: single
 title: JBoss EAP7 Perimeter Authentication
 date: 2019-02-16
-#categories: jboss eap authn
+tags: jboss eap authn
 ---
 
 According to Oracle's Documentation, Weblogic Server has this feature called [Perimeter Authentication](https://docs.oracle.com/cd/E13212_01/wles/docs42/secintro/services.html#1056409) [5], which all requests must pass through before accessing any content being served by EAR/WARs.  This allows the apps to be configured with BASIC (clear text) auth, as defined in their web.xml with <auth-method>BASIC/auth-method>, but use SSO so domain users don't need to log in again.
@@ -13,7 +13,7 @@ To handle SPNEGO, Wildfly (what EAP7 is based on) built in an authentication mec
 ) [4].  They want us to set  <auth-method>SPNEGO</auth-method> in the web.xml file, so anything else would mean doing something custom.  This is only a concern if you want to maintain RH Support.
 
 
-## References  
+## References
 1. [https://github.com/wildfly/wildfly/blob/10.1.0.Final/undertow/src/main/java/org/wildfly/extension/undertow/ServletContainerAdd.java#L121](https://github.com/wildfly/wildfly/blob/10.1.0.Final/undertow/src/main/java/org/wildfly/extension/undertow/ServletContainerAdd.java#L121)
 2. [https://github.com/wildfly-security/jboss-negotiation/blob/3.0.3.Final/jboss-negotiation-common/src/main/java/org/jboss/security/negotiation/NegotiationMechanism.java](https://github.com/wildfly-security/jboss-negotiation/blob/3.0.3.Final/jboss-negotiation-common/src/main/java/org/jboss/security/negotiation/NegotiationMechanism.java)
 3. [https://tomcat.apache.org/tomcat-5.5-doc/catalina/docs/api/org/apache/catalina/authenticator/SingleSignOn.html](https://tomcat.apache.org/tomcat-5.5-doc/catalina/docs/api/org/apache/catalina/authenticator/SingleSignOn.html)

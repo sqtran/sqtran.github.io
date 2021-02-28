@@ -2,13 +2,13 @@
 layout: single
 title: Ansible Dynamic Groups Trick
 date: 2019-05-28
-#categories: ansible tips
+tags: ansible tips
 ---
 
 Here is a handy Ansible task to dynamically create a list of hosts, based on items in an inventory.  This was created specifically for a playbook dealing with `JBoss EAP` `TCP_PING` configurations, but the technique can be applied to various other applications.
 
 ## Steps
-First set an Ansible Fact that will hold the list.  
+First set an Ansible Fact that will hold the list.
 {% raw %}
 ```yml
 - name: Collect IPs for the entire cluster

@@ -2,7 +2,7 @@
 layout: single
 title: OCP/EAP and jboss-cli
 date: 2020-05-07
-#categories: jboss ocp jboss-cli eap
+tags: jboss ocp jboss-cli eap
 ---
 
 ## Management

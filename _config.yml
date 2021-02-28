@@ -101,10 +101,11 @@ author:
   location         : "Washington, DC"
   linkedin         : steve-tran-a9a30331
   github           : sqtran
-  links:
-    - label: "Email"
-      icon: "fas fa-fw fa-envelope-square"
-      url: "mailto:stran@redhat.com"      
+  email            : stran@redhat.com
+  # links:
+  #   - label: "Email"
+  #     icon: "fas fa-fw fa-envelope-square"
+  #     url: "mailto:stran@redhat.com"
 
 
 # Site Footer

@@ -20,7 +20,7 @@ locale                   : "en-US"
 title                    : "Tales from the Field"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
-name                     : "Your Name"
+name                     :
 description              : "This is a collection of my random thoughts"
 url                      : # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
@@ -32,15 +32,15 @@ masthead_title           : # overrides the website title displayed in the masthe
 words_per_minute         : 150
 comments:
   provider               : # false (default), "disqus", "discourse", "facebook", "staticman", "staticman_v2", "utterances", "custom"
-  # disqus:
-  #   shortname            : # https://help.disqus.com/customer/portal/articles/466208-what-s-a-shortname-
-  # discourse:
-  #   server               : # https://meta.discourse.org/t/embedding-discourse-comments-via-javascript/31963 , e.g.: meta.discourse.org
-  # facebook:
-  #   # https://developers.facebook.com/docs/plugins/comments
-  #   appid                :
-  #   num_posts            : # 5 (default)
-  #   colorscheme          : # "light" (default), "dark"
+  disqus:
+    shortname            : # https://help.disqus.com/customer/portal/articles/466208-what-s-a-shortname-
+  discourse:
+    server               : # https://meta.discourse.org/t/embedding-discourse-comments-via-javascript/31963 , e.g.: meta.discourse.org
+  facebook:
+    # https://developers.facebook.com/docs/plugins/comments
+    appid                :
+    num_posts            : # 5 (default)
+    colorscheme          : # "light" (default), "dark"
   utterances:
     theme                : # "github-light" (default), "github-dark"
     issue_term           : # "pathname" (default)
@@ -97,7 +97,7 @@ analytics:
 author:
   name             : "Steve Tran"
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "Hello World!"
+  bio              : "I'm a fixer of broken things"
   location         : "Washington, DC"
   linkedin         : steve-tran-a9a30331
   github           : sqtran

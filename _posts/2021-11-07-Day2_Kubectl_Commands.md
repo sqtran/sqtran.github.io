@@ -33,4 +33,9 @@ When using Tekton Pipelines, a lot of failed/completed `PipelineRuns` will be co
 oc get pipelinerun | grep "Failed" | awk '{print $1}' | xargs oc delete pipelinerun
 ```
 
-This could get really fancy with timestamp checks, so pipelineruns older than a week (or whatever useful duration you decide) can be pruned.
+This could get really fancy with timestamp checks, so pipelineruns older than a week (or whatever useful duration you decide) can be pruned, for example.
+
+```bash
+oc get pipelineruns -o go-template --template '{{range .items}}{{.metadata.name}} {{.metadata.creationTimestamp}}{{"\n"}}{{end}}' | awk '$2 <= "'$(date -d '7 days ago' -Ins --utc | sed 's/+0000/Z/')'" { print $1 }' | xargs --no-run-if-empty oc delete pipelinerun
+```
+

@@ -5,7 +5,7 @@ tags: artifactory oc-mirror ocp
 ---
 
 ## Background
-This is revisiting a [previous post](2019-06-19-Openshift-Image-Mirror-Artifactory.md) about mirroring images to external registries.  I'm introducing a few new commands that will help if your OpenShift registry is not publicly exposed.
+This is revisiting a [previous post](../Openshift-Image-Mirror-Artifactory) about mirroring images to external registries.  I'm introducing a few new commands that will help if your OpenShift registry is not publicly exposed.
 
 
 ### Prerequisites:

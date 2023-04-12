@@ -22,4 +22,21 @@ no main manifest attribute, in /deployments/hello-quarkus-1.0.0-SNAPSHOT.jar
 
 You can build an `uber-jar` aka fat jar by specifying it as a property in your `application.properties`, or setting it in your `pom.xml` under the properties section.  I'm leaning towards having it in the `pom.xml` so I can leave application specific configurations in the `application.properties`, but that's just a matter of preference.
 
+A) pom.xml
+
+```xml
+    <properties>
+    ...
+        <quarkus.package.type>uber-jar</quarkus.package.type>
+    ...
+    </properties>
+```
+
+B) application.properties
+```text
+   quarkus.package.type=uber-jar
+```
+
+No need to set it in both places, just pick option A or B.
+
 After you package the app again, a file with similar pattern `hello-quarkus-1.0-SNAPSHOT-runner.jar` will be produced, which you can run anywhere now.

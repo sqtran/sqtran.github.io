@@ -21,6 +21,14 @@ Once that change has taken affect, a `default-route` will be created.  You can u
 podman login $(oc get route default-route -o jsonpath='{.spec.host}' -n openshift-image-registry) -u $(oc whoami) -p $(oc whoami -t)
 ```
 
+Note: If you're planning on doing this for a non-human process, such as a pipeline - you'll need to create a service account token
+
+```bash
+# This will give you a token that's valid for 1 year, but the default is 1 hour
+oc create token builder --duration 525600m
+```
+
+
 Use this to grab the route's hostname.
 ```bash
 oc get route default-route -o jsonpath='{.spec.host}' -n openshift-image-registry

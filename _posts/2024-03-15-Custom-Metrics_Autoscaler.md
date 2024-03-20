@@ -193,3 +193,21 @@ spec:
 ```
 
 Note - make sure you grab the "token" and not the "dockercfg" ID. They look similar but are not the same.
+
+
+## Test it out
+
+You'll need a load test tool to generate enough HTTP traffic to test your autoscaling.  I use the follow script that spins up another container with the `work2` application.  You can use any tool you want though.
+
+```bash
+#!/bin/bash
+
+HOSTNAME=hello-quarkus-steve-keda.apps.OCP_DOMAIN
+ENDPOINT=/varsleep?min=1000\&max=2000
+# -R = TPS
+# -t = threads
+# -c = TCP connections to keep open
+# -d = duration (recommend min 30s)
+
+podman run --rm cylab/wrk2 -R 500 -t 4 -c 20 -d 30s https://$HOSTNAME$ENDPOINT
+```

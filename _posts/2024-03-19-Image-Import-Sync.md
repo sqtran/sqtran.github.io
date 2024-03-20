@@ -1,6 +1,6 @@
 ---
 title: Image Import Sync
-date: 2024-03-18
+date: 2024-03-19
 tags: ocp images
 ---
 

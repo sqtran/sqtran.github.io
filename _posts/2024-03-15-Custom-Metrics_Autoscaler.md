@@ -1,0 +1,195 @@
+---
+title: Custom Metrics Autoscaling with KEDA
+date: 2024-03-15
+tags: quarkus ocp keda
+---
+
+## Background
+The default Kubernetes Pod Autoscaler allows users to monitor and horizontally scale out pods based on memory and CPU usage.  CPU and Memory is more of a proxy metric, and what developers, or sophisticated applications, need are more application-centric metrics that trigger scaling events.  The upstream KEDA project is an extension of the Horizontal Pod Autoscaler that does just that.  KEDA allows Kubernetes to use any custom-exposed metric to make determinations on when to scale.
+
+
+
+## Installation
+
+### Platform Requirements
+
+OpenShift provides the Custom Metric Autoscaler Operator, which is based upon the upstream KEDA project. This is a platform/cluster level operation that requires administrator permissions to perform.
+
+The Operator simplifies the installation, configuration, and management of KEDA-related resources within a Kubernetes cluster. It leverages the Operator pattern to streamline the deployment process and handle the necessary interactions with the Kubernetes API server.
+
+Installing the Operator allows you to instantiate a Kubernetes CustomResource for a `KedaController`.
+
+Once the `KedaController` is created, additional configurations are required:
+
+- ServiceAccount to allow the Metrics Server access to the application’s namespace to scrape metrics
+- TriggerAuthentication that links the ServiceAccount token with the ScaledJob that the application team will create (see below)
+- Roles that allows the Prometheus Scraping process to read/access the application team’s namespace
+- ServiceMonitor specifies what workloads are providing metrics and what endpoint those metrics are exposed on
+- ConfigMap that enables userWorkLoads to be scrape for metrics
+
+
+
+### Application Requirements
+
+KEDA can connect to other types of custom metrics, such as a Kafka Topic, but our demo focuses on consuming prometheus-formatted metrics from the application itself.  With Java applications, there already exist common libraries that specialize in this. One set of specifications, known as MicroProfile, was created specifically for building efficient and resilient microservices. One particular library that implements the Microprofile Metrics specification is called `smallrye-metrics`, but the latest and greatest library recommended is `micrometer-registry-prometheus`.
+
+After the prometheus-formatted metrics are available from the application, another resource is required.
+
+- ScaledObject defines the rules for scaling a deployment. 
+
+The ScaledObject uses PromQL (Prometheus Query Language) to specify the metric to capture, and the threshold to trigger on.
+
+A sample image is available for you at [hello-quarkus](https://quay.io/stran/hello-quarkus).  Source code is available as well in this Git [repo](https://github.com/sqtran/hello-quarkus).
+
+
+
+## YAMLs
+Here are all the YAML files needed mentioned above.
+
+```yaml
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: cluster-monitoring-config
+  namespace: openshift-monitoring
+data:
+  config.yaml: |
+    enableUserWorkload: true
+---
+
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: thanos-metrics-reader
+  namespace: steve-keda
+rules:
+  - verbs:
+      - get
+    apiGroups:
+      - ''
+    resources:
+      - pods
+  - verbs:
+      - get
+      - list
+      - watch
+    apiGroups:
+      - metrics.k8s.io
+    resources:
+      - pods
+      - nodes
+---
+
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: thanos-metrics-reader
+  namespace: steve-keda
+subjects:
+  - kind: ServiceAccount
+    name: thanos
+    namespace: steve-keda
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: thanos-metrics-reader
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: steve-keda
+  namespace: steve-keda
+spec:
+  endpoints:
+    - interval: 5s
+      path: /q/metrics
+      port: 8080-tcp
+      scheme: http
+  namespaceSelector: {}
+  selector:
+    matchLabels:
+      app: hello-quarkus
+---
+
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: prometheus-scaledobject
+  namespace: steve-keda
+  finalizers:
+    - finalizer.keda.sh
+  labels:
+    scaledobject.keda.sh/name: prometheus-scaledobject
+spec:
+  maxReplicaCount: 10
+  minReplicaCount: 1
+  pollingInterval: 5
+  scaleTargetRef:
+    kind: deployment
+    name: hello-quarkus
+  triggers:
+    - authenticationRef:
+        name: keda-trigger-auth-prometheus
+      metadata:
+        authModes: bearer
+        metricName: http_server_active_requests
+        namespace: steve-keda
+        query: sum(http_server_active_requests)
+        serverAddress: 'https://thanos-querier.openshift-monitoring.svc.cluster.local:9092'
+        threshold: '5'
+      type: prometheus
+---
+
+kind: KedaController
+apiVersion: keda.sh/v1alpha1
+metadata:
+  name: keda
+  namespace: openshift-keda
+spec:
+  admissionWebhooks:
+    logEncoder: console
+    logLevel: info
+  metricsServer:
+    logLevel: '0'
+  operator:
+    logEncoder: console
+    logLevel: info
+  serviceAccount: null
+  watchNamespace: ''
+```
+
+
+
+This last piece requires the creation of a Service Account.
+
+
+```bash
+oc create serviceaccount thanos -n steve-keda
+oc adm policy add-role-to-user thanos-metrics-reader -z thanos --role-namespace=steve-keda
+
+oc describe sa thanos -n steve-keda
+```
+
+Grab the service account token id and plug it into the follow `TriggerAuthentication` yaml.
+
+
+```yaml
+apiVersion: keda.sh/v1alpha1
+kind: TriggerAuthentication
+metadata:
+  finalizers:
+    - finalizer.keda.sh
+  name: keda-trigger-auth-prometheus
+  namespace: steve-keda
+spec:
+  secretTargetRef:
+    - key: token
+      name: thanos-token-$TOKEN_ID
+      parameter: bearerToken
+    - key: ca.crt
+      name: thanos-token-$TOKEN_ID
+      parameter: ca
+```
+
+Note - make sure you grab the "token" and not the "dockercfg" ID. They look similar but are not the same.

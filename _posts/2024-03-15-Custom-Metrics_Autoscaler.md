@@ -35,7 +35,7 @@ KEDA can connect to other types of custom metrics, such as a Kafka Topic, but ou
 
 After the prometheus-formatted metrics are available from the application, another resource is required.
 
-- ScaledObject defines the rules for scaling a deployment. 
+- ScaledObject defines the rules for scaling a deployment.
 
 The ScaledObject uses PromQL (Prometheus Query Language) to specify the metric to capture, and the threshold to trigger on.
 
@@ -210,4 +210,123 @@ ENDPOINT=/varsleep?min=1000\&max=2000
 # -d = duration (recommend min 30s)
 
 podman run --rm cylab/wrk2 -R 500 -t 4 -c 20 -d 30s https://$HOSTNAME$ENDPOINT
+```
+
+
+## Permissions for non-clusteradmins
+
+The creation of ServiceMonitors requires additional permissions that regular users probably don't have.  You'll need to create a new role and binding that grants users access to these objects.
+
+
+```yaml
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: manage-servicemonitors
+  namespace: myapplication
+rules:
+  - verbs:
+      - '*'
+    apiGroups:
+      - monitoring.coreos.com
+    resources:
+      - servicemonitors
+
+```
+
+```yaml
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: manage-servicemonitors
+  namespace: myapplication
+rules:
+  - verbs:
+      - '*'
+    apiGroups:
+      - monitoring.coreos.com
+    resources:
+      - servicemonitors
+
+```
+
+
+## TLS Configurations
+
+ Some applications may not be configured to listen on the standard HTTP port, so you may need to configure your ServiceMonitor for HTTPS.  That's easily done by setting the scheme to "https" and specifying a targetPort (if not 443).
+
+```yaml
+  - interval: 5s
+    path: /q/metrics
+    port: 8443-TCP
+    scheme: https
+```
+
+
+ Another noteworthy scenario is when your application is doing client certificate validation, so your ServiceMonitor needs to send a certificate to your service to grab the /metrics endpoint.  In this case, you can configure settings in the "tlsConfig" stanza of the ServiceMonitor.  Here's an example.
+
+
+```yaml
+- interval: 5s
+  path: /q/metrics
+  targetPort: 10443
+  scheme: https
+  tlsConfig:
+    cert:
+      secret:
+        key: tls.crt
+        name: clientcert
+    keySecret:
+      key: tls.key
+      name: clientcert
+```
+
+It references a Secret named "clientcert" - which contains a certificate and key in **PEM** format.
+
+```yaml
+kind: Secret
+apiVersion: v1
+metadata:
+  name: clientcert
+data:
+  tls.crt: <certificate_material_here>
+  tls.key: <key_material_here>
+type: kubernetes.io/tls
+```
+
+
+# Bonus Automation of Operator Installation
+
+```yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: openshift-keda
+---
+
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  labels:
+    operators.coreos.com/openshift-custom-metrics-autoscaler-operator.openshift-keda: ''
+  name: openshift-custom-metrics-autoscaler-operator
+  namespace: openshift-keda
+spec:
+  channel: stable
+  installPlanApproval: Automatic
+  name: openshift-custom-metrics-autoscaler-operator
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+  startingCSV: custom-metrics-autoscaler.v2.11.2-322
+---
+
+apiVersion: operators.coreos.com/v1alpha2
+kind: OperatorGroup
+metadata:
+  generateName: openshift-keda-
+  annotations:
+    olm.providedAPIs: 'ClusterTriggerAuthentication.v1alpha1.keda.sh,KedaController.v1alpha1.keda.sh,ScaledJob.v1alpha1.keda.sh,ScaledObject.v1alpha1.keda.sh,TriggerAuthentication.v1alpha1.keda.sh'
+  name: openshift-keda-6sjcw
+  namespace: openshift-keda
+spec: {}
 ```

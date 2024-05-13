@@ -135,7 +135,7 @@ spec:
         authModes: bearer
         metricName: http_server_active_requests
         namespace: steve-keda
-        query: sum(http_server_active_requests)
+        query: sum(http_server_active_requests{job="optionally-filter-on-your-deployment"})
         serverAddress: 'https://thanos-querier.openshift-monitoring.svc.cluster.local:9092'
         threshold: '5'
       type: prometheus
@@ -330,3 +330,11 @@ metadata:
   namespace: openshift-keda
 spec: {}
 ```
+
+# Tips and Tricks
+
+If the auto-scaler doesn't appear to be working, check the Horizontal Pod Autoscaler Tab and verify that the PromQL query in your ScaledObject is correct.  The active count should fluctuate under load, during the specified interval (make sure you're putting it under load for at least that scrape interval).
+
+If unsure about query syntax, run the PromQL query in the Metrics Tab.  Any ad-hoc query can be entered there, to verify the syntax or metric name is correct.
+
+Make sure the filter is set `{job="your_deployment"}` to avoid metric name collision when aggregating results.  This is important when multiple applications are producing the same metric in the same namespace.

@@ -338,3 +338,5 @@ If the auto-scaler doesn't appear to be working, check the Horizontal Pod Autosc
 If unsure about query syntax, run the PromQL query in the Metrics Tab.  Any ad-hoc query can be entered there, to verify the syntax or metric name is correct.
 
 Make sure the filter is set `{job="your_deployment"}` to avoid metric name collision when aggregating results.  This is important when multiple applications are producing the same metric in the same namespace.
+
+Pause the ScaledObject if you want to test the application's behavior without auto-scaling.  There are two annotations to set on the ScaledObject to either pause all autoscaling, or to statically set the number of replicas to a specific number.  They are  and `autoscaling.keda.sh/paused: "true"`, and `autoscaling.keda.sh/paused-replicas: "n"`, respectively, where n is the number of replicas to hard-code to.

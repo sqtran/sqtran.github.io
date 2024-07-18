@@ -309,10 +309,13 @@ metadata:
   generateName: openshift-keda-
   annotations:
     olm.providedAPIs: 'ClusterTriggerAuthentication.v1alpha1.keda.sh,KedaController.v1alpha1.keda.sh,ScaledJob.v1alpha1.keda.sh,ScaledObject.v1alpha1.keda.sh,TriggerAuthentication.v1alpha1.keda.sh'
-  name: openshift-keda-6sjcw
+  name: openshift-keda
   namespace: openshift-keda
 spec: {}
 ```
+
+If you want to see an example of this configured in OpenShift GitOps (ArgoCD), visit https://github.com/sqtran/argocd-demo
+
 
 # Tips and Tricks
 

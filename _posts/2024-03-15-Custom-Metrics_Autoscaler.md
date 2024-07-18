@@ -234,23 +234,6 @@ rules:
 
 ```
 
-```yaml
-kind: Role
-apiVersion: rbac.authorization.k8s.io/v1
-metadata:
-  name: manage-servicemonitors
-  namespace: myapplication
-rules:
-  - verbs:
-      - '*'
-    apiGroups:
-      - monitoring.coreos.com
-    resources:
-      - servicemonitors
-
-```
-
-
 ## TLS Configurations
 
  Some applications may not be configured to listen on the standard HTTP port, so you may need to configure your ServiceMonitor for HTTPS.  That's easily done by setting the scheme to "https" and specifying a targetPort (if not 443).

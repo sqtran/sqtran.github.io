@@ -278,7 +278,7 @@ type: kubernetes.io/tls
 ```
 
 
-# Bonus Automation of Operator Installation
+## Bonus Automation of Operator Installation
 
 ```yaml
 apiVersion: v1
@@ -317,7 +317,7 @@ spec: {}
 If you want to see an example of this configured in OpenShift GitOps (ArgoCD), visit https://github.com/sqtran/argocd-demo
 
 
-# Tips and Tricks
+## Tips and Tricks
 
 If the auto-scaler doesn't appear to be working, check the Horizontal Pod Autoscaler Tab and verify that the PromQL query in your ScaledObject is correct.  The active count should fluctuate under load, during the specified interval (make sure you're putting it under load for at least that scrape interval).
 
@@ -328,7 +328,7 @@ Make sure the filter is set `{job="your_deployment"}` to avoid metric name colli
 Pause the ScaledObject if you want to test the application's behavior without auto-scaling.  There are two annotations to set on the ScaledObject to either pause all autoscaling, or to statically set the number of replicas to a specific number.  They are  and `autoscaling.keda.sh/paused: "true"`, and `autoscaling.keda.sh/paused-replicas: "n"`, respectively, where n is the number of replicas to hard-code to.
 
 
-# Kubernetes Update
+## Kubernetes Update
 
 Kubernetes recently changed how ServiceAccount are created, so the ServiceAccount Secrets are no longer generated automatically.  They will need to be created manually with the following commands.
 

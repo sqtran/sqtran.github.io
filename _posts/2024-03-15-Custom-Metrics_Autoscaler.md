@@ -361,3 +361,13 @@ spec:
       name: yoursecret
       parameter: bearerToken
 ```
+
+If you're getting x509 issues in trying to connect to `thanos-querier.openshift-monitoring.svc.cluster.local:9092` in your KEDA Operator logs, you'll need to add the certificate to the secret above, and update the TriggerAuthentication again.  You can grab the secret from the openshift-monitoring namespace.
+
+```yaml
+
+    - key: your-ca-cert-for-querier
+      name: yoursecret
+      parameter: ca
+
+```

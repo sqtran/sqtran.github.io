@@ -222,7 +222,7 @@ The creation of ServiceMonitors requires additional permissions that regular use
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: manage-servicemonitors
+  name: manage-keda-apis
   namespace: myapplication
 rules:
   - verbs:
@@ -231,6 +231,13 @@ rules:
       - monitoring.coreos.com
     resources:
       - servicemonitors
+  - verbs:
+      - '*'
+    apiGroups:
+      - keda.sh
+    resources:
+      - triggerauthentication
+      - scaledobject
 
 ```
 

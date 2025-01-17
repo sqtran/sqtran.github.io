@@ -34,3 +34,25 @@ stringData:
   secret: <OAuth Secret here>
 
 ```
+
+## Configuring an encrypted Maven settings.xml file
+
+Setting up a maven settings.xml file is pretty simple with a few special Dev Spaces annotations on a Secret or ConfigMap.  We'll use a Secret in this example because sometimes a Maven settings.xml file contains unencrypted passwords (to servers, repos, etc.).  It's easy to encrypt these passwords though, so if you aren't using encrypte passwords, you should convert to them now.
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mvn-settings-secret
+  labels:
+    controller.devfile.io/mount-to-devworkspace: 'true'
+    controller.devfile.io/watch-secret: 'true'
+  annotations:
+    controller.devfile.io/mount-path: '/home/user/.m2'
+    controller.devfile.io/mount-as: subpath
+data:
+  settings.xml: <your_file>
+  settings-security.xml: <your_file>
+```
+
+Note: the `controller.devfile.io/mount-as: subpath` annotation is really important or else the ./m2 folder loses its permissions and will not be writable when Maven tries to create a repository subfolder to save artifacts.

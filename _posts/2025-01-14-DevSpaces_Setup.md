@@ -56,3 +56,38 @@ data:
 ```
 
 Note: the `controller.devfile.io/mount-as: subpath` annotation is really important or else the ./m2 folder loses its permissions and will not be writable when Maven tries to create a repository subfolder to save artifacts.
+
+## Creating Globally Shared files across all User Workspaces
+
+Sometimes you'll want certain files/settings to be configured in all User Workspaces, such as setting a certain ENV variable, or common file that all users/teams will want to use.  To do so, create a Secret or ConfigMap in the namespace where "devspaces" was installed.
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: sample-shared-secret
+  namespaes: devspaces
+  labels:
+    app.kubernetes.io/component: workspaces-config
+    app.kubernetes.io/part-of: che.eclipse.org
+  annotations:
+    controller.devfile.io/mount-as: env
+data:
+  SHARED_ENV1: VALUE1
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sample-shared-configmap
+  namespaes: devspaces
+  labels:
+    app.kubernetes.io/component: workspaces-config
+    app.kubernetes.io/part-of: che.eclipse.org
+  annotations:
+    controller.devfile.io/mount-as: subpath
+    controller.devfile.io/mount-path: /home/user
+data:
+  README.txt: My Test File
+```

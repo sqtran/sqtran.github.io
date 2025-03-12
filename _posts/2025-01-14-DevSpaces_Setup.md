@@ -91,3 +91,11 @@ metadata:
 data:
   README.txt: My Test File
 ```
+
+## Viewing the Default VSX Plugins
+
+In case you ever want to know what plugins are available in the default plugin registry, you can run the following command on the plugin-registry pod.
+
+```bash
+cat /openvsx-server/openvsx-sync.json
+```

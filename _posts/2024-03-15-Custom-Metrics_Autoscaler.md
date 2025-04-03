@@ -362,3 +362,18 @@ If you're getting x509 issues in trying to connect to `thanos-querier.openshift-
       parameter: ca
 
 ```
+
+The OpenShift self-signed certificates are valid for 2 years, and they auto-renew when there is less than 13 months left, you'll end up with 11 months before needing to update the certificate.  A better approach would be to use the CA bundle, which can be injected into a ConfigMap with the following annotation.  `service.beta.openshift.io/inject-cabundle: true`
+
+```yaml
+spec:
+  configMapTargetRef:
+    - key: service-ca.crt
+      name: your_configmap
+      parameter: ca
+
+```
+
+## Architecture Overview
+
+![Architecture Diagram](https://lh3.googleusercontent.com/pw/AP1GczN5rZWo-bBQRAoZvhz2D1HmQVwOTgIVHcTK4SmWC5FUUVQV8YfkI7Np6H5DPJHOitxDoDp_aMpkeqEVRU69MRpM1MMSWxkZdagJFdsrLBabMEpC-6LXMeO4JfOnkdFCyotEVj6RGLUnVh2b-HdEEh8ASA=w1435-h1195-s-no-gm)

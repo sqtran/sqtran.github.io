@@ -5,9 +5,8 @@ tags: quarkus ocp keda
 ---
 
 ## Background
+
 The default Kubernetes Pod Autoscaler allows users to monitor and horizontally scale out pods based on memory and CPU usage.  CPU and Memory is more of a proxy metric, and what developers, or sophisticated applications, need are more application-centric metrics that trigger scaling events.  The upstream KEDA project is an extension of the Horizontal Pod Autoscaler that does just that.  KEDA allows Kubernetes to use any custom-exposed metric to make determinations on when to scale.
-
-
 
 ## Installation
 
@@ -27,8 +26,6 @@ Once the `KedaController` is created, additional configurations are required:
 - ServiceMonitor specifies what workloads are providing metrics and what endpoint those metrics are exposed on
 - ConfigMap that enables userWorkLoads to be scrape for metrics
 
-
-
 ### Application Requirements
 
 KEDA can connect to other types of custom metrics, such as a Kafka Topic, but our demo focuses on consuming prometheus-formatted metrics from the application itself.  With Java applications, there already exist common libraries that specialize in this. One set of specifications, known as MicroProfile, was created specifically for building efficient and resilient microservices. One particular library that implements the Microprofile Metrics specification is called `smallrye-metrics`, but the latest and greatest library recommended is `micrometer-registry-prometheus`.
@@ -41,9 +38,8 @@ The ScaledObject uses PromQL (Prometheus Query Language) to specify the metric t
 
 A sample image is available for you at [hello-quarkus](https://quay.io/stran/hello-quarkus).  Source code is available as well in this Git [repo](https://github.com/sqtran/hello-quarkus).
 
-
-
 ## YAMLs
+
 Here are all the YAML files needed mentioned above.
 
 ```yaml
@@ -159,10 +155,7 @@ spec:
   watchNamespace: ''
 ```
 
-
-
 This last piece requires the creation of a Service Account.
-
 
 ```bash
 oc create serviceaccount thanos -n steve-keda
@@ -172,7 +165,6 @@ oc describe sa thanos -n steve-keda
 ```
 
 Grab the service account token id and plug it into the follow `TriggerAuthentication` yaml.
-
 
 ```yaml
 apiVersion: keda.sh/v1alpha1
@@ -194,7 +186,6 @@ spec:
 
 Note - make sure you grab the "token" and not the "dockercfg" ID. They look similar but are not the same.
 
-
 ## Test it out
 
 You'll need a load test tool to generate enough HTTP traffic to test your autoscaling.  I use the follow script that spins up another container with the `work2` application.  You can use any tool you want though.
@@ -212,11 +203,9 @@ ENDPOINT=/varsleep?min=1000\&max=2000
 podman run --rm cylab/wrk2 -R 500 -t 4 -c 20 -d 30s https://$HOSTNAME$ENDPOINT
 ```
 
-
 ## Permissions for non-clusteradmins
 
 The creation of ServiceMonitors requires additional permissions that regular users probably don't have.  You'll need to create a new role and binding that grants users access to these objects.
-
 
 ```yaml
 kind: Role
@@ -252,9 +241,7 @@ rules:
     scheme: https
 ```
 
-
  Another noteworthy scenario is when your application is doing client certificate validation, so your ServiceMonitor needs to send a certificate to your service to grab the /metrics endpoint.  In this case, you can configure settings in the "tlsConfig" stanza of the ServiceMonitor.  Here's an example.
-
 
 ```yaml
 - interval: 5s
@@ -283,7 +270,6 @@ data:
   tls.key: <key_material_here>
 type: kubernetes.io/tls
 ```
-
 
 ## Bonus Automation of Operator Installation
 
@@ -321,8 +307,7 @@ metadata:
 spec: {}
 ```
 
-If you want to see an example of this configured in OpenShift GitOps (ArgoCD), visit https://github.com/sqtran/argocd-demo
-
+If you want to see an example of this configured in OpenShift GitOps (ArgoCD), visit <https://github.com/sqtran/argocd-demo>
 
 ## Tips and Tricks
 
@@ -333,7 +318,6 @@ If unsure about query syntax, run the PromQL query in the Metrics Tab.  Any ad-h
 Make sure the filter is set `{job="your_deployment"}` to avoid metric name collision when aggregating results.  This is important when multiple applications are producing the same metric in the same namespace.
 
 Pause the ScaledObject if you want to test the application's behavior without auto-scaling.  There are two annotations to set on the ScaledObject to either pause all autoscaling, or to statically set the number of replicas to a specific number.  They are  and `autoscaling.keda.sh/paused: "true"`, and `autoscaling.keda.sh/paused-replicas: "n"`, respectively, where n is the number of replicas to hard-code to.
-
 
 ## Kubernetes Update
 

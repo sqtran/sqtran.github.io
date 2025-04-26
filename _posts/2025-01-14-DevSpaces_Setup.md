@@ -99,3 +99,7 @@ In case you ever want to know what plugins are available in the default plugin r
 ```bash
 cat /openvsx-server/openvsx-sync.json
 ```
+
+## Debugging postStart Events
+
+In some situations, adding postStart events to your devfiles may not work, and there isn't any visible output to indicate why.  In this case, check the postStart logs located in  `/tmp/poststart-stderr.txt` and `/tmp/poststart-stdout.txt` to see what went wrong.

@@ -66,7 +66,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: sample-shared-secret
-  namespaes: devspaces
+  namespace: devspaces
   labels:
     app.kubernetes.io/component: workspaces-config
     app.kubernetes.io/part-of: che.eclipse.org
@@ -81,7 +81,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: sample-shared-configmap
-  namespaes: devspaces
+  namespace: devspaces
   labels:
     app.kubernetes.io/component: workspaces-config
     app.kubernetes.io/part-of: che.eclipse.org
